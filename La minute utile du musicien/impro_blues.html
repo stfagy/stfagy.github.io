@@ -1,0 +1,1587 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>IMPRO-BLUES-#1</title>
+    <style>
+        :root{
+          --bg: #0f172a;        /* slate-900 */
+          --panel: #111827;     /* gray-900 */
+          --muted: #94a3b8;     /* slate-400 */
+          --text: #e5e7eb;      /* gray-200 */
+          --primary: #22d3ee;   /* cyan-400 */
+          --accent: #a78bfa;    /* violet-400 */
+          --ok: #34d399;        /* emerald-400 */
+          --danger: #fb7185;    /* rose-400 */
+          --shadow: 0 10px 30px rgba(0,0,0,.25);
+          --radius: 16px;
+        }
+        html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";}
+        a{color:var(--primary);text-decoration:none}
+        a:hover{text-decoration:underline}
+
+        /* Bannière */
+        header.banner{
+          background: radial-gradient(1200px 500px at 10% 0%, #0ea5e9 0%, rgba(14,165,233,0) 60%),
+                      radial-gradient(1000px 400px at 100% 10%, #8b5cf6 0%, rgba(139,92,246,0) 55%),
+                      linear-gradient(180deg, #0b1220, #0f172a 70%);
+          padding: 40px 24px 24px;
+          position:relative;
+          box-shadow: var(--shadow);
+        }
+        .brand{display:flex;align-items:center;gap:16px;max-width:1200px;margin:0 auto}
+        .logo{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#22d3ee,#a78bfa);display:grid;place-items:center;box-shadow:var(--shadow)}
+        .logo span{font-weight:800;color:#0b1220}
+        .titles h1{margin:0;font-size:clamp(22px,4vw,34px);letter-spacing:.2px}
+        .titles p{margin:.25rem 0 0;color:var(--muted)}
+
+        /* Menu */
+        nav{
+          background:#0b1220a6;backdrop-filter:blur(6px);
+          position:sticky;top:0;z-index:50;box-shadow:var(--shadow);
+        }
+        .nav-wrap{max-width:1200px;margin:0 auto;display:flex;gap:8px;overflow:auto;padding:8px 12px}
+        .nav-wrap a{
+          white-space:nowrap;padding:10px 14px;border-radius:12px;color:var(--text);text-decoration:none;transition:.2s ease all;border:1px solid transparent
+        }
+        .nav-wrap a:hover{background:#0f172a;border-color:#1f2937}
+        .nav-wrap a.active{background:linear-gradient(135deg,#22d3ee22,#a78bfa22);border-color:#334155}
+
+        main{max-width:1200px;margin:24px auto;padding:0 16px}
+
+        /* Cartes & panneaux */
+        .panel{background:linear-gradient(180deg,#0b1220,#0f172a);border:1px solid #1f2937;border-radius:var(--radius);box-shadow:var(--shadow)}
+        .pad{padding:20px}
+
+        /* Accueil: tableau modules */
+        table{width:100%;border-collapse:collapse}
+        th,td{padding:14px;border-bottom:1px solid #1f2937}
+        th{color:#cbd5e1;text-align:left;font-weight:700}
+        tr:hover td{background:#0b1220}
+        .tag{display:inline-block;padding:2px 10px;border-radius:999px;border:1px solid #334155;color:#cbd5e1;font-size:.85rem}
+        .btn{display:inline-flex;gap:8px;align-items:center;padding:10px 12px;border-radius:10px;background:#0b1220;border:1px solid #334155;color:#e2e8f0;text-decoration:none}
+        .btn:hover{background:#111827}
+
+        /* Sections module */
+        section.module{margin:20px 0}
+        .module .head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px}
+        .module h2{margin:.2rem 0;font-size:clamp(20px,3.2vw,28px)}
+        .muted{color:var(--muted)}
+
+        .grid{display:grid;gap:16px}
+        @media (min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+
+        .figure{border-radius:12px;overflow:hidden;border:1px solid #1f2937;background:#0b1220}
+        .figure img{display:block;width:70%;height:auto}
+
+        /* Vidéo PeerTube responsive */
+        .video {
+          max-width: 700px;   /* largeur max */
+          margin: 0 auto;     /* centré */
+        }
+        .video{position:relative;overflow:hidden;border-radius:12px;border:1px solid #1f2937;background:#0b1220}
+        .video::before{content:"";display:block;padding-top:56.25%}
+        .video iframe,.video video{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+        /* Footer */
+        footer{color:var(--muted);text-align:center;padding:40px 16px}
+    </style>
+</head>
+<body>
+<header class="banner">
+    <div class="brand">
+        <div class="titles">
+            <h1>IMPRO-BLUES-#1</h1>
+            <p>COMPRENDRE - REPERER - APPLIQUER - ENTENDRE - IMPROVISER - ETRE CREATIF</p>
+        </div>
+    </div>
+</header>
+
+<nav aria-label="Navigation principale">
+    <div class="nav-wrap">
+        <a href="#accueil" data-route>Accueil</a>
+        <a href="#module-0" data-route>Module 0</a>
+        <a href="#module-1" data-route>Module 1</a>
+        <a href="#module-2" data-route>Module 2</a>
+        <a href="#module-3" data-route>Module 3</a>
+        <a href="#module-4" data-route>Module 4</a>
+        <a href="#module-5" data-route>Module 5</a>
+        <a href="#module-6" data-route>Module 6</a>
+        <a href="#module-7" data-route>Module 7</a>
+        <a href="#module-8" data-route>Module 8</a>
+    </div>
+</nav>
+
+<main>
+    <!-- ACCUEIL -->
+    <section id="accueil" class="panel pad" data-view>
+        <h2 style="margin-top:0">Accueil</h2>
+        <div class="panel" style="margin-top:12px">
+            <div class="pad" style="overflow:auto">
+                <table aria-describedby="desc-accueil">
+                    <thead>
+                    <tr>
+                        <th>Sommaire</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><strong>Module 0</strong></td>
+                        <td>LES BASES<br>
+                            Préalables, notions de base, Kit de survie "INTERVALLES"
+                        </td>
+                        <td><a class="btn" href="#module-0" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 1</strong></td>
+                        <td>EXPLOITER LA PENTATONIQUE MINEURE<br>
+                            Comprendre et entendre ce qui se passe dans la structure de cette gamme
+                        </td>
+                        <td><a class="btn" href="#module-1" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 2</strong></td>
+                        <td>LES BLUE-NOTES<br>
+                            Inflexions et vocalité. Expressivité du jeu.
+                        </td>
+                        <td><a class="btn" href="#module-2" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 3</strong></td>
+                        <td>PENTATONIQUE MINEURE et IMPROVISATION VERTICALE<br>
+                            Mettre en valeur les accords, donner du sens et de l'évidence à son jeu
+                        </td>
+                        <td><a class="btn" href="#module-3" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 4</strong></td>
+                        <td>LA PENTATONIQUE MAJEURE<br>
+                            Une autre couleur, les 3 défauts qui freinent les guitaristes, couples de couleurs
+                        </td>
+                        <td><a class="btn" href="#module-4" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 5</strong></td>
+                        <td>PENTA MAJEURE ET IMPRO VERTICALE<br>
+                            Notes cibles, phrases hybrides, questions réponses
+                        </td>
+                        <td><a class="btn" href="#module-5" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 6</strong></td>
+                        <td>LE PHRASé RYTHMIQUE<br>
+                            Vitalité rythmique, placement, anticipations, retards, dynamique...
+                        </td>
+                        <td><a class="btn" href="#module-6" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 7</strong></td>
+                        <td>BACKING-TRACKS<br>
+                            Tous les BT de tous les modules
+                        </td>
+                        <td><a class="btn" href="#module-7" data-route>Ouvrir →</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Module 8</strong></td>
+                        <td>PERSPECTIVES<br>
+                            C'est important les perspectives... Complètement complémentaire.
+                        </td>
+                        <td><a class="btn" href="#module-8" data-route>Ouvrir →</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gabarit de section Module (x8) -->
+    <section id="module-0" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 0 — LES BASES</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Quelques notions de départ pour profiter au mieux de la formation.<br>
+                Gamme Pentatonique mineure et Kit de survie "Intervalles"</p>
+            <article class="panel pad">
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/5gTgir5PuPQhYzGQF3aNjp?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>1) KIT DE SURVIE "INTERVALLES"</h3>
+                <p>Voici une vidéo qui vous permettra de nommer les choses. Plutôt que "tu vois la note, un peu en
+                    dessous, non plus bas, un peu à gauche mais pas trop, juste après le tas de pierres en bois",
+                    vous pourrez juste dire "la b3". Il ne s'agit pas ici d'aborder toutes les subtilités des
+                    intervalles, ni de les reconnaître à l'oreille, ni de comprendre tout ce qu'ils peuvent faire
+                    pour vous (il y a une formation pour ça), ici on se sert des intervalles pour nommer les notes
+                    par rapport à l'accord ou la tonalité de notre blues. Prenez le temps de faire les exercices
+                    (des diagrammes vierges et les solutions vous attendent dans le PDF en bas de page). Vous
+                    trouverez aussi des versions des PDF pour les gauchers (sauf les modules 6-7 et 8, parce qu'ils
+                    ne comportent pas de diagrammes). Oui je sais... C'est cool. </p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/iDTaUNMhb5zEJURPGKhifC?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <img src="assets/PLAN-VIDEO-IMPRO-BLUES-1-M0.png"
+                     alt="plan de la vidéo"
+                     style="display:block; margin:20px auto; max-width:600px; width:100%; height:auto; border-radius:12px;"/>
+
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>2) LES BASES DE LA PENTA - 1</h3>
+                <p>Les 3 vidéos suivantes pourront vous être utiles pour révision si besoin. Si vous débutez, elles vous
+                    seront d'une grande aide pour la suite. Elle sont parues sur ma chaîne "La minute utile du musicien"
+                    au tout début de celle-ci. J'y ai une drôle de tête, je n'avais pas trop l'habitude de la caméra,
+                    j'ai l'air tout coincé... Mais ce sont de bonnes vidéos. Il aurait été idiot de s'en passer pour
+                    préparer ce programme. La première vous donne des repères sur ce que cette gamme est vraiment, sa
+                    nature et deux ou trois autres choses utiles...</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/gXZSZuXgXsSiHPxsRzL57d?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>3) LES BASES DE LA PENTA - 2</h3>
+                <p>Il existe une grande confusion sur l'utilité des "positions" d'une gamme sur la guitare. Les
+                    débutants pensent souvent qu'il faut commencer par apprendre toutes les positions de cette gamme,
+                    avant de commencer à s'en servir. Vous verrez dans cette formation que je conseille le contraire...
+                    Commençons par répondre à certaines interrogations courantes. A quoi servent-elles ? Comment les
+                    retrouver ? Qu'est-ce qui est le plus urgent ?</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/dGyv3JL5quTJzghS1YtvE2?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>4) LES BASES DE LA PENTA - 3</h3>
+                <p>Bon, c'est bien beau ! Mais si je veux profiter pleinement de la formation en connaissant déjà mes 5
+                    positions de la gamme pentatonique, je fais comment pour les mémoriser? Dois-je les apprendre
+                    bêtement ou y a t'il une structure cachée? Une géométrie avantageuse qui puisse m'aider ? OK, on y
+                    va les amis...</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/g3FDwdGcNw7mbWqaseJyms?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <a href="impro_blues/M0-IMPRO-BLUES-1d-laurent-rousseau.pdf" target="_blank" rel="noopener">
+                <img src="assets/IMAGE-PDF-exo-IMPRO-BLUES-1.png" alt="Lien vers le PDF"
+                     style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"/>
+            </a>
+
+        </div>
+
+    </section>
+
+    <section id="module-1" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 1 — LA PENTATONIQUE MINEURE</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Comprendre et entendre ce qui se passe dans la structure de cette gamme</p>
+
+            <article class="panel pad">
+                <h3>1) COMPRENDRE </h3>
+                <p>Dans cette partie "comprendre", on essaie de tisser des liens entre les choses pour en saisir
+                    l'esprit. Car les choses sans l'esprit des choses, ne sont rien... (vachement clair comme phrase!)
+                    Bref le BLUES est une musique profonde, intense et magnétique, elle a infusée partout, je trouve
+                    important d'essayer d'en saisir l'esprit. Chaque module débutera par une vidéo de cette série. Elles
+                    sont optionnelles si vous voulez, mais elles sont fondamentales pour moi... C'est dit. On commence
+                    avec "Une musique nouvelle". </p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/nq3S5T2KkVsqNpVRVPiH5X?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>2) REPERER</h3>
+                <p>On croit souvent connaître la gamme Pentatonique mineure et on ressent assez vite le sentiment de
+                    tourner en rond en jouant dessus. Si c'est votre cas, alors quelque chose vous a échappé ! Les
+                    modules 1 et 2 vous permettront de comprendre quoi ! Une famille... Une gamme est une famille. Ces
+                    deux modules vous feront rejoindre ceux qui savent très bien qu'il est impossible de tourner en rond
+                    sur quoi que ce soit. C'est souvent la créativité qui tourne en rond. On va y remédier avec le PDF
+                    d'exercices. Prenez le temps de sentir tout ça, ouvrez vos oreilles. Ah au fait ! J'ai ajouté une
+                    option de variation de vitesse des vidéos (quand c'est utile), ce sera pratique pour les plans un
+                    peu rapides... Cliquez sur la roue crantée dans le coin en bas à droite des vidéos.</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <img src="assets/PLAN-VIDEO-IMPRO-BLUES-1-M1.png"
+                     alt="plan de la vidéo"
+                     style="display:block; margin:20px auto; max-width:600px; width:100%; height:auto; border-radius:12px;"/>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>3) LES ASTUCES...</h3>
+                <p>Notez que toutes les vidéos peuvent être agrandies... Voici une première astuce pour vous permettre
+                    de mémoriser facilement la Gamme Pentatonique mineure. La plupart du temps les élèves sont
+                    incapables de la chanter... C'est pourtant important pour la suite de vos progrès, pour ne pas juste
+                    poser les doigts quelque part ! La deuxième est plutôt un exercice (mais bon, je fais ce que je
+                    veux)...
+                    <br>
+                    Euh ,au fait, plus la peine de me conseiller sur ma panne hein ! C'est réparé.</p>
+                <div class="grid">
+
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/kiEa6g9pWK4Bikh9zPbirp?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                </div>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>4) VOCABULAIRE</h3>
+                <p>Il est fondamental d'apprendre de la musique par coeur, en grande quantité... Il s'agit d'amasserer
+                    du vocabulaire, mais aussi de l'articulation, de la dynamique et mille autres choses sans lesquelles
+                    vous ne pourrez pas vous exprimer ! Les notes ne sont rien, c'est tout le reste qui fait le
+                    boulot... Ces quelques minutes ont été jouées pour mettre en évidence le contenu des vidéos du
+                    module. J'essaie d'y jouer sans virtuosité, le principe est ailleurs... Apprenez-les. Passez-y du
+                    temps pour les détails, vous disposez du relevé en tablatures et partitions dans le PDF
+                    téléchargeable en bas de page. Et comme je suis un mec cool, vous disposez du Backing-track pour
+                    bosser, juste en dessous... C'est dingue.</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/rXXZe5gkhJ8WyNcP8FeW7z?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <a href="impro_blues/BT-M1-VOCAB-MP3.mp3" target="_blank"
+                   style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>5) BACKING-TRACKS 100% BIO</h3>
+                <p>L'ensemble de ce module est à travailler en contexte, votre oreille en a besoin... C'est le meilleur
+                    moyen de mettre tout ça en application, servez vous des exercices donnés dans le PDF (à la fin) pour
+                    guider votre travail. Voici des Backing-tracks faits maison, où on joue ensemble, en duos, pour
+                    rester dans quelque chose de simple et roots, qui laisse de la place pour vos improvisations, et qui
+                    ne sonne pas comme les BT qu'on trouve partout sur YouTube avec des batterie en plastique (désolé,
+                    je suis allergique !). Mais si vous en trouvez qui vous plaisent, vous devez évidemment vous en
+                    servir aussi. Chaque module aura ses nouveaux BT. Et un module à la fin de la formation les
+                    rassemblera tous au même endroit. C'est bien aussi de jouer tous les exemples des vidéos sur ces BT.
+                    Allez hop ! </p>
+
+
+                <div class="grid">
+
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/hi2PmA23bdiuLuA8njsDaw?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/qKELt9mTcih1fXNQJYix6N?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/dGyv3JL5quTJzghS1YtvE2?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/dGyv3JL5quTJzghS1YtvE2?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <a href="impro_blues/M1-IMPRO-BLUES-1b-laurent-rousseau_compressed.pdf" target="_blank" rel="noopener">
+                <img src="assets/IMAGE-PDF-exo-IMPRO-BLUES-1.png" alt="Lien vers le PDF"
+                     style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"/>
+            </a>
+
+        </div>
+
+    </section>
+
+    <section id="module-2" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 2 — LES BLUE-NOTES</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Inflexions et vocalité. Expressivité du jeu.</p>
+
+            <article class="panel pad">
+                <h3>1) COMPRENDRE </h3>
+                <p>Le BLUES est une musique de traces. Elle porte en elle des couches sédimentaires encore visibles, si
+                    on utilise les bonnes lunettes. On y voit clairement ses origines mélodiques, plus diverses que ce
+                    que l'on croit, on y reconnait de grands oubliés de l'histoire. Rien de dogmatique ici, non plus de
+                    vérités toutes faites qu'on a lues 100 fois dans les livres, juste de l'observation et de la
+                    créativité. C'est ce que le Blues a toujours fait de mieux en somme, alors prenons exemple sur
+                    lui. </p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/nq3S5T2KkVsqNpVRVPiH5X?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>2) REPERER</h3>
+                <p>ATTENTION ! Toute note peut être affectée d'un bend (pourvu qu'elle vise une autre note désirée). Ce
+                    que j'appelle "tordre" est autre chose : il s'agit alors d'infléchir de façon microtonale une note
+                    (variation inférieure au demi-ton). Par exemple la Tonique peut être bendée par exemple jusqu'à la
+                    seconde majeure ou la tierce mineure, mais elle ne peut pas être "tordue" de façon microtonale. Pigé
+                    ?
+                    <br><br>
+                    La source du Blues est mélodique. Et ses particularismes sont la base de ses couleurs. Encore une
+                    fois, ce sont les détails qui font toute la différence entre un jeu mature et expressif et une
+                    errance sans fin qu'on a du mal à écouter. Chaque guitariste peut devenir un vrai bluesman,
+                    développer ses propres solutions et son propre style, mais il doit observer ce qui fait le son de
+                    cette musique pour y trouver ce qui le fait vibrer personnellement. Attention, quand je dis
+                    "tordre", je ne parle pas de bend, mais d'inflixion micro-tonale. Quand je veux parler de bend, je
+                    dis... "bend". Je vous rappelle que tous les exemples sont repris dans le PDF, et que vous trouverez
+                    des exercices à la fin de celui-ci pour mettre tout ça en oeuvre de façon intelligente et sensible
+                    (rien que ça!). Ouvrez vos oreilles. </p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <img src="assets/PLAN-VIDEO-IMPRO-BLUES-1-M2.png"
+                     alt="plan de la vidéo"
+                     style="display:block; margin:20px auto; max-width:600px; width:100%; height:auto; border-radius:12px;"/>
+                <br>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>3) LES ASTUCES...</h3>
+                <p>Notez que toutes les vidéos peuvent être agrandies... Voici une première astuce pour vous permettre
+                    de mémoriser facilement la Gamme Pentatonique mineure. La plupart du temps les élèves sont
+                    incapables de la chanter... C'est pourtant important pour la suite de vos progrès, pour ne pas juste
+                    poser les doigts quelque part ! La deuxième est plutôt un exercice (mais bon, je fais ce que je
+                    veux)...
+                    <br>
+                    Euh ,au fait, plus la peine de me conseiller sur ma panne hein ! C'est réparé.</p>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>4) PRATIQUER</h3>
+                <p>Les éléments de legato sont un des points forts de la guitare. Cet instrument peut être extrêmement
+                    expressif si on joue sur ses qualités. C'est sans doute ce qui fait qu'on pense régulièrement que la
+                    guitare "c'est fini" et que 2 ans après on se retrouve avec des groupes à grattes dans tous les
+                    coins du monde. Tant qu'il y aura des hommes il y aura des guitares, et je soupçonne même les chats
+                    de vouloir prendre la relève après nous... Et tant qu'il y aura des guitares, il y aura des
+                    BENDS...</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/rXXZe5gkhJ8WyNcP8FeW7z?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>5) VOCABULAIRE</h3>
+                <p>Pour bien observer comment fonctionnent les blue-notes, il faut apprendre de la musique par cœur. On
+                    peut dire que ce PDF n'en manque pas, faites-vous plaisir ! On poursuit avec nos séances de
+                    VOCABULAIRE, ici j'ai fait deux vidéos, la première pour les plus débutants, la seconde pour les
+                    plus avancés ( je n'ai pas encore fait le relevé de cette dernière, mais ça pourrait être un bon
+                    exercice pour vous en attendant). Notez que dans ces vidéos de Vocabulaire, je m'efforce de jouer
+                    assez simplement pour que le sujet reste visible et facile à isoler pour le travailler. </p>
+
+
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+            </article>
+            <article class="panel pad">
+                <h3>6) BACKING-TRACKS 100% BIO</h3>
+                <p>Hey les amis, voici 4 nouveaux backing-tracks statiques sur un accord. Pour moi il est crucial
+                    d'obtenir déjà de bonnes sensations sur un accord stable avant de s'attaquer à la grille
+                    complète. Le module suivant vous permettra de commencer le travail de mise en valeur des
+                    accords. Mais pour le moment, on continue à mettre en place le contenu du cours. On tord, mais
+                    pas n'importe comment... Et on ouvre ses oreilles. C'est bien aussi de jouer tous les exemples
+                    des vidéos sur ces BT. Faites vous plaisir. Allez hop ! </p>
+
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <a href="impro_blues/M1-IMPRO-BLUES-1b-laurent-rousseau_compressed.pdf" target="_blank" rel="noopener">
+                <img src="assets/IMAGE-PDF-exo-IMPRO-BLUES-1.png" alt="Lien vers le PDF"
+                     style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"/>
+            </a>
+
+        </div>
+
+    </section>
+
+    <section id="module-3" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 3 — PENTATONIQUE MINEURE et IMPROVISATION VERTICALE</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Mettre en valeur les accords pour donner du sens et de l'évidence à son jeu.</p>
+
+            <article class="panel pad">
+                <h3>1) COMPRENDRE </h3>
+                <p>Ce module est... copieux. Si vous débutez, vous devez avoir déjà bien avancé sur vos sensations dans
+                    les modules précédent avant d'attaquer ici. Mais vous pouvez aussi regarder en attendant par
+                    curiosité, c'est toujours ça de pris pour la suite ! L'harmonie BLUES est un truc spécial, très
+                    spécial, presque une aberration magnifique. On décortique ici une approche harmonique du blues,
+                    puisqu'on va commencer dans ce module l'improvisation verticale, c'est à dire trouver dans la grille
+                    harmonique des solutions pour rendre notre jeu plus sensé, évident, élégant... La classe quoi ! J'y
+                    donne aussi quelques petits trucs pour les plus avancés, donc pas de panique pour les autres sur la
+                    fin de la vidéo, essayez juste d'écouter et jouer les choses... Tous est dans le PDF. </p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/nq3S5T2KkVsqNpVRVPiH5X?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>2) BONUS - OUI C'EST COOL ...</h3>
+                <p>Dans la vidéo "COMPRENDRE" je vous promets des vidéos appropriées pour expliquer mieux certains
+                    points, ce sont de petits extraits de ma formation "INTERVALLES ET SYSTEME CAGED". Ceux parmi vous
+                    qui l'ont suivie savent quel outil fabuleux ça représente de maîtriser cela. Cela forme un tout,
+                    avec notre sujet présent (IMPRO BLUES) qui peut projeter votre jeu et votre vision dans une autre
+                    dimension... "Vers l'infini et au delààààà!"</p>
+
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                </div>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>3) REPERER</h3>
+                <p>Ce n'est pas parce qu'on joue en "indifférence harmonique" qu'on est sourd ! Même si on n'utilise que
+                    la gamme pentatonique mineure sur tout le Blues, la réalité est que les accords sont ce qu'ils sont,
+                    ils font entendre vos lignes mélodiques par un nouvel éclairage. Je vous conseille donc d'être
+                    conscient des choses qui sous-tendent votre discours, d'entendre ces changements harmoniques pour
+                    développer des phrases qui soient les plus évidentes possibles et élégantes et sauvages aussi... et
+                    ... et. Bref, Dans ces deux vidéos, on commence le boulot qui est rarement maîtrisé chez les élèves
+                    : l'improvisation verticale. Les accords sont là ! Jouons sur eux, et avec eux... Pas contre eux. En
+                    tout cas ce que vous faites doit être voulu à 100%. Ah ! Au fait, mineure ! (avec un "e" à 19'10''
+                    de la seconde vidéo...)</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <img src="assets/PLAN-VIDEO-IMPRO-BLUES-1-M3.png"
+                     alt="plan de la vidéo"
+                     style="display:block; margin:20px auto; max-width:600px; width:100%; height:auto; border-radius:12px;"/>
+                <br>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>4) LES ASTUCES...</h3>
+                <p>Notez que toutes les vidéos peuvent être agrandies... Voici une première astuce pour vous permettre
+                    de mémoriser facilement la Gamme Pentatonique mineure. La plupart du temps les élèves sont
+                    incapables de la chanter... C'est pourtant important pour la suite de vos progrès, pour ne pas juste
+                    poser les doigts quelque part ! La deuxième est plutôt un exercice (mais bon, je fais ce que je
+                    veux)...
+                    <br>
+                    Euh ,au fait, plus la peine de me conseiller sur ma panne hein ! C'est réparé.</p>
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                </div>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>5) PRATIQUER</h3>
+                <p>La différence entre un jeu expressif et un jeu tout plat est la même que celle qui existe entre une
+                    parole qui touche ou émeut et un serveur vocal teléphonique. L'humanité est sensible à la
+                    singularité, à l'intension, aux marques d'expression, aux petites attentions pour offrir. Désolé
+                    pour l'image ci-dessous, mais Martin est venu me parler, j'ai fait "pause" et ma tête l'a fait
+                    marrer. Il m'a défié de garder cette image... Comme quoi on peut mal connaître son père. Et
+                    maintenant c'est moi qu'elle fait marrer... et puis vous peut-être. L'intention d'offrir, de vouloir
+                    que les gens soient bien, passe parfois par de drôles d'endroits.</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/rXXZe5gkhJ8WyNcP8FeW7z?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>6) VOCABULAIRE</h3>
+                <p>Il est fondamental d'apprendre de la musique par coeur, en grande quantité... Il s'agit d'amasser du
+                    vocabulaire, mais aussi de l'articulation, de la dynamique et mille autres choses sans lesquelles
+                    vous ne pourrez pas vous exprimer ! Les notes ne sont rien, c'est tout le reste qui fait le
+                    boulot... Ces quelques minutes ont été jouées pour mettre en évidence le contenu des vidéos du
+                    module. J'essaie d'y jouer sans virtuosité, le principe est ailleurs... Apprenez-les. Passez-y du
+                    temps pour les détails, vous disposez du relevé en tablatures et partitions dans le PDF
+                    téléchargeable en bas de page ainsi que du Backing-track en vidéo juste à côté pour les codes
+                    couleurs et les animaux... Et comme je suis un mec cool, vous l'avez aussi en MP3 pour bosser, juste
+                    en dessous... C'est dingue.</p>
+
+
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <br>
+                    <a href="" target="_blank"
+                       style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                </div>
+                <br>
+            </article>
+            <article class="panel pad">
+                <h3>7) BACKING-TRACKS 100% BIO</h3>
+                <p>Les choses sérieuses commencent! On va travailler votre conscience de la grille, pour savoir à tout
+                    moment quel accord, quelle direction, que mettre en valeur, que viser... Pour travailler ça, j'ai
+                    mis au point depuis 35 ans avec mes élèves, une methode infaillible pour vous raccrocher enfin à la
+                    structure harmonique du blues. 2 étapes, la première est celle des BINÔMES, la seconde celle des
+                    LIGNES. Chaque module aura ses nouveaux BT. Et un module à la fin de la formation les rassemblera
+                    tous au même endroit. C'est bien aussi de jouer tous les exemples des vidéos sur ces BT. Allez hop
+                    !</p>
+                <h3>TRAVALLER LES BINÔMES</h3>
+                <p>On travaille des séquences de deux accords pour se familiariser avec ces passages glissants. Deux
+                    mesures sur chaque accord, la vidéo peut vous aider grâce au code couleur et aux indications des
+                    accords. Faites cela longtemps, la transe favorise l'intuition... Ici vous avez tous les binômes
+                    possibles IV-I / V-I / V-IV .
+                    Prenez le temps de ces exercices, il faut les maîtriser avant de passer sur le backing-track seul
+                    (sans vidéo). Chaque vidéo peut être agrandie.</p>
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+                <h3>TRAVALLER LES LIGNES</h3>
+                <p>Maintenant, vous pouvez commencer à travailler chaque ligne du BLUES indépendamment. Cet exercice est
+                    capital pour ne pas avoir toujours un train de retard sur les changements d'accords. Le PDF (à la
+                    fin) contient plein d'exercices et de pistes pour guider vos recherches...</p>
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+                <h3>TRAVALLER LA GRILLE ENTIERE</h3>
+                <p>Allez c'est parti ! On recolle les morceaux !!! Soyez patient, vous aurez peut être du mal au début,
+                    c'est normal, quand on commence ce travail, on est obligé de penser... Lorsqu'on apprend une langue
+                    on commence par penser "il me faut un verbe, mais il est où ce verbe, comment je dois dire déjà?" et
+                    peu à peu on ne pense plus à rien d'autres qu'au message, à ce qu'on a à dire... Pour
+                    l'improvisation , c'est la même chose. L'être tout entier fabrique peu à peu de l'intuition, cela
+                    prend du temps, c'est la moindre des choses... La vidéo vous donne les codes couleurs, le BT... bah
+                    non !</p>
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <a href="impro_blues/M3-IMPRO-BLUES-1b-laurent-rousseau.pdf" target="_blank" rel="noopener">
+                <img src="assets/IMAGE-PDF-exo-IMPRO-BLUES-1.png" alt="Lien vers le PDF"
+                     style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"/>
+            </a>
+
+        </div>
+
+    </section>
+
+    <section id="module-4" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 4 — LA PENTATONIQUE MAJEURE</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Une autre couleur, les 3 défauts qui freinent les guitaristes, couples de couleurs</p>
+
+            <article class="panel pad">
+                <h3>1) COMPRENDRE </h3>
+                <p>On croit toujours que la structure du blues est quelque chose d'immuable. Qu'il est tombé comme ça du
+                    ciel, tout cuit, tout formaté. Mais c'est à la fois faux et beaucoup plus intéressant que ça ! On
+                    voit dans cette vidéo ce qui a joué pour qu'on en arrive là, et ce qui fait l'éternelle résistance
+                    aux cadres rigides, à tout ce qui peut entraver la narration ou la prosodie. On y parle de plein de
+                    choses, de la structure mais pas seulement... J'aime bien ces vidéos "comprendre", j'ai pris
+                    beaucoup de plaisir à les faire, parce que l'esprit pour moi conditionne tout ! Allez, c'est
+                    reparti... </p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/nq3S5T2KkVsqNpVRVPiH5X?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>2) REPERER</h3>
+                <p>C'est un problème vraiment récurrent ! Cette gamme pentatonique majeure donne du tracas aux
+                    guitaristes. Et je sais pourquoi ! Cette vidéo contient des conseils très importants... On va y
+                    repérer encore plein de choses et apprendre à connaître une nouvelle famille, celle d'en face. On va
+                    aussi étendre la notion de blue-notes pour en créer de nouvelles très savoureuses et donner à cette
+                    gamme un pouvoir expressif que vous ne lui donnez que très rarement, bien qu'elle le mérite ! Mais
+                    avant d'attaquer... Un conseil.</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <img src="assets/PLAN-VIDEO-IMPRO-BLUES-1-M4.png"
+                     alt="plan de la vidéo"
+                     style="display:block; margin:20px auto; max-width:600px; width:100%; height:auto; border-radius:12px;"/>
+                <br>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/https://peertube.cif.su/w/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>3) LES ASTUCES...</h3>
+                <p>On doit apprendre à reconnaître et chanter toutes les gammes (et pas seulement) sinon, difficile de
+                    "commander la couleur" à volonté. Ici deux astuces, comme pour la penta mineure, une pour mémoriser,
+                    une pour ancrer. Oui c'est cool... Ah au fait, j'ai été obligé d'appliquer de très fortes
+                    compressions à ces deux vidéos parce qu'elles étaient anormalement lourdes... Après renseignement
+                    auprès de mon ami Paulo qui est calé en matière de formats et de fichiers, c'est parce qu'il y a des
+                    feuilles!!!! Plein de détails qui augmentent le nombre d'informations de l'image et empêchent de
+                    faire une petite compression pèpère à tonton. La solution, dit-il, est de ne pas aller en forêt ou
+                    de ne pas bouger trop... Bon bah j'ai tout faux.</p>
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                </div>
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>4) PRATIQUER</h3>
+                <p>Les 3 gros gros défauts de la pensée du guitariste... Et plein de bases d'exercices très importants,
+                    couples de couleurs, couples de positions, zones de glissement, travail des portes, et bends de
+                    roublards...</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/rXXZe5gkhJ8WyNcP8FeW7z?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>5) VOCABULAIRE</h3>
+                <p>Plein de bonnes choses à se mettre derrière l'oreille ici, j'ai improvisé plusieurs grilles, les
+                    premières sont plus faciles. Essayez de bien repérer ce que je joue par rapport à ce qu'on a vu dans
+                    le cours... Et observez aussi les phrases par rapport aux accords qui passent, comment on tire sur
+                    telle note quand on passe sur tel accord. L'analyse fait partie du travail, il faut être un
+                    enquêteur... J'utilise la Penta majeure pour vous la faire entendre et vous donner des pistes
+                    d'utilisation. Apprenez ces phrases. Passez y du temps pour les détails, vous disposez du relevé en
+                    tablatures et partitions dans le PDF téléchargeable en bas de page. Et ici, juste en dessous, le
+                    Backing-track pour bosser. Je vous ai aussi mis le BT vidéo sans mon impro (en changeant un peu les
+                    animaux) et avec les codes couleurs pour les accords. Ce blues est lent, si vous débutez, il est tip
+                    top pour vous entraîner à toutes nos techniques de cette formation... </p>
+
+
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                </div>
+                <a href="" target="_blank"
+                   style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+
+                <br>
+            </article>
+            <article class="panel pad">
+                <h3>6) BACKING-TRACKS 100% BIO</h3>
+                <p>Hey les amis, voici 4 nouveaux backing-tracks statiques sur un accord. Pour moi il est crucial
+                    d'obtenir déjà de bonnes sensations sur un accord stable avant de s'attaquer à la grille
+                    complète. Le module suivant vous permettra de commencer le travail de mise en valeur des
+                    accords. Mais pour le moment, on continue à mettre en place le contenu du cours. On tord, mais
+                    pas n'importe comment... Et on ouvre ses oreilles. C'est bien aussi de jouer tous les exemples
+                    des vidéos sur ces BT. Faites vous plaisir. Allez hop ! </p>
+
+                <div class="grid">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <a href="impro_blues/M1-IMPRO-BLUES-1b-laurent-rousseau_compressed.pdf" target="_blank" rel="noopener">
+                <img src="assets/IMAGE-PDF-exo-IMPRO-BLUES-1.png" alt="Lien vers le PDF"
+                     style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"/>
+            </a>
+
+        </div>
+
+    </section>
+
+    <section id="module-5" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 5 — Outils avancés</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Décrivez ici le contenu du module 5.</p>
+            <div class="grid">
+                <article class="panel pad">
+                    <h3>Boîte à outils</h3>
+                    <p>Présentez les outils et leurs cas d’usage.</p>
+                    <div class="figure"><img src="assets/module5-image.jpg" alt="Illustration pour le module 5"/></div>
+                </article>
+                <aside>
+                    <div class="video">
+                        <iframe title="Module 5 – Vidéo"
+                                src="https://peertube.cif.su/videos/embed/UUID_A_REMPLACER?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section id="module-6" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 6 — Intégration</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Décrivez ici le contenu du module 6.</p>
+            <div class="grid">
+                <article class="panel pad">
+                    <h3>Chaînage & automation</h3>
+                    <p>Expliquez comment tout relier pour produire un flux cohérent.</p>
+                    <div class="figure"><img src="assets/module6-image.jpg" alt="Illustration pour le module 6"/></div>
+                </article>
+                <aside>
+                    <div class="video">
+                        <iframe title="Module 6 – Vidéo"
+                                src="https://peertube.cif.su/videos/embed/UUID_A_REMPLACER?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section id="module-7" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 7 — Optimisation</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Décrivez ici le contenu du module 7.</p>
+            <div class="grid">
+                <article class="panel pad">
+                    <h3>Performance & qualité</h3>
+                    <p>Décrivez les critères, métriques et techniques d’optimisation.</p>
+                    <div class="figure"><img src="assets/module7-image.jpg" alt="Illustration pour le module 7"/></div>
+                </article>
+                <aside>
+                    <div class="video">
+                        <iframe title="Module 7 – Vidéo"
+                                src="https://peertube.cif.su/videos/embed/UUID_A_REMPLACER?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section id="module-8" class="module" data-view hidden>
+        <div class="panel pad">
+            <div class="head">
+                <h2>Module 8 — Conclusion & ressources</h2>
+                <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
+            </div>
+            <p class="muted">Décrivez ici le contenu du module 8, récapitulatif et liens utiles.</p>
+            <div class="grid">
+                <article class="panel pad">
+                    <h3>Résumé</h3>
+                    <p>Points clés retenus, checklist finale, perspectives d’approfondissement.</p>
+                    <div class="figure"><img src="assets/module8-image.jpg" alt="Illustration pour le module 8"/></div>
+                </article>
+                <aside>
+                    <div class="video">
+                        <iframe title="Module 8 – Vidéo"
+                                src="https://peertube.cif.su/videos/embed/UUID_A_REMPLACER?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <small>© <span id="y"></span> – IMPRO BLUES #1</small>
+</footer>
+
+<script>
+    // Année de pied de page
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Mini‑router hash pour afficher 1 vue à la fois
+    const views = [...document.querySelectorAll('[data-view]')];
+    const links = [...document.querySelectorAll('[data-route]')];
+
+    function show(hash){
+      if(!hash) hash = '#accueil';
+      const id = hash.replace('#','');
+      // Toggle vues
+      views.forEach(v => v.hidden = (v.id !== id));
+      // Active nav
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      // Focus titre pour accessibilité
+      const section = document.getElementById(id);
+      if(section){
+        const h = section.querySelector('h2');
+        if(h) h.setAttribute('tabindex','-1'), h.focus({preventScroll:true});
+        window.scrollTo({top: 0, behavior: 'instant'});
+      }
+    }
+
+    window.addEventListener('hashchange', () => show(location.hash));
+    // Navigation via clic (évite le scroll ancre par défaut)
+    links.forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); history.pushState(null, '', a.getAttribute('href')); show(location.hash); }));
+
+    // Initial
+    show(location.hash);
+</script>
+</body>
+</html>
