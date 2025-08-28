@@ -69,9 +69,21 @@
         .module h2{margin:.2rem 0;font-size:clamp(20px,3.2vw,28px)}
         .muted{color:var(--muted)}
 
-        .grid{display:grid;gap:16px}
-        @media (min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+        /* grille de base */
+        .grid { display: grid; gap: 16px; }
 
+        /* par défaut: 1 colonne sur mobile */
+        .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
+
+        /* 2 par ligne dès ≥ 900px */
+        @media (min-width: 900px) {
+          .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* 3 par ligne dès ≥ 1200px (modifiable) */
+        @media (min-width: 1200px) {
+          .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        }
         .figure{border-radius:12px;overflow:hidden;border:1px solid #1f2937;background:#0b1220}
         .figure img{display:block;width:70%;height:auto}
 
@@ -392,7 +404,7 @@
                     veux)...
                     <br>
                     Euh ,au fait, plus la peine de me conseiller sur ma panne hein ! C'est réparé.</p>
-                <div class="grid">
+                <div class="grid cols-2">
 
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
@@ -457,7 +469,7 @@
                     Allez hop ! </p>
 
 
-                <div class="grid">
+                <div class="grid cols-3">
 
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
@@ -676,7 +688,7 @@
                     assez simplement pour que le sujet reste visible et facile à isoler pour le travailler. </p>
 
 
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -713,7 +725,7 @@
                     pas n'importe comment... Et on ouvre ses oreilles. C'est bien aussi de jouer tous les exemples
                     des vidéos sur ces BT. Faites vous plaisir. Allez hop ! </p>
 
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -819,7 +831,7 @@
                     avec notre sujet présent (IMPRO BLUES) qui peut projeter votre jeu et votre vision dans une autre
                     dimension... "Vers l'infini et au delààààà!"</p>
 
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -892,7 +904,7 @@
                     veux)...
                     <br>
                     Euh ,au fait, plus la peine de me conseiller sur ma panne hein ! C'est réparé.</p>
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -952,7 +964,7 @@
                     en dessous... C'est dingue.</p>
 
 
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -995,7 +1007,7 @@
                     possibles IV-I / V-I / V-IV .
                     Prenez le temps de ces exercices, il faut les maîtriser avant de passer sur le backing-track seul
                     (sans vidéo). Chaque vidéo peut être agrandie.</p>
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1048,7 +1060,7 @@
                 <p>Maintenant, vous pouvez commencer à travailler chaque ligne du BLUES indépendamment. Cet exercice est
                     capital pour ne pas avoir toujours un train de retard sur les changements d'accords. Le PDF (à la
                     fin) contient plein d'exercices et de pistes pour guider vos recherches...</p>
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1105,7 +1117,7 @@
                     l'improvisation , c'est la même chose. L'être tout entier fabrique peu à peu de l'intuition, cela
                     prend du temps, c'est la moindre des choses... La vidéo vous donne les codes couleurs, le BT... bah
                     non !</p>
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1237,7 +1249,7 @@
                     feuilles!!!! Plein de détails qui augmentent le nombre d'informations de l'image et empêchent de
                     faire une petite compression pèpère à tonton. La solution, dit-il, est de ne pas aller en forêt ou
                     de ne pas bouger trop... Bon bah j'ai tout faux.</p>
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1295,7 +1307,7 @@
                     top pour vous entraîner à toutes nos techniques de cette formation... </p>
 
 
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1324,14 +1336,13 @@
             </article>
             <article class="panel pad">
                 <h3>6) BACKING-TRACKS 100% BIO</h3>
-                <p>Hey les amis, voici 4 nouveaux backing-tracks statiques sur un accord. Pour moi il est crucial
-                    d'obtenir déjà de bonnes sensations sur un accord stable avant de s'attaquer à la grille
-                    complète. Le module suivant vous permettra de commencer le travail de mise en valeur des
-                    accords. Mais pour le moment, on continue à mettre en place le contenu du cours. On tord, mais
-                    pas n'importe comment... Et on ouvre ses oreilles. C'est bien aussi de jouer tous les exemples
-                    des vidéos sur ces BT. Faites vous plaisir. Allez hop ! </p>
+                <p>Encore des BT 100% BIO !!! Un Blues rock and roll, un autre évaporé et un rugueux. Encore du travail
+                    de binômes (jimi) et du travail de lignes (Buddy - il y a deux lignes 3 différentes) ... On est bien
+                    hein... Vous trouverez à la fin du PDF une progression d'exercices pour apprivoiser cette penta
+                    majeure... Bien sûr, tous le BT supportent tous les exos y compris ceux des autres modules, et
+                    inversement ! Allez hop ! </p>
 
-                <div class="grid">
+                <div class="grid cols-3">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1404,6 +1415,8 @@
                         <a href="impro_blues/m4/BT-JIMI-BINOME-V-IV-MP3.mp3" target="_blank"
                            style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
                     </aside>
+                </div>
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1560,7 +1573,7 @@
                     chanter... Comme ce sont des riffs, je vous ai mis les tablatures et partitions dans le PDF... Oui
                     je suis cool. </p>
 
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1598,7 +1611,7 @@
                     soutient et ma reconnaissance. </p>
 
 
-                <div class="grid">
+                <div class="grid cols-2">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1632,7 +1645,7 @@
                     des conseils personnalisés (un à la fois hein)... Ci-dessous, on continue de travailler nos binômes
                     et puis nos lignes... Puis nos blues entiers. </p>
 
-                <div class="grid">
+                <div class="grid cols-3">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1717,7 +1730,7 @@
                     comme si l'accord était là... C'est la magie de la culture, où on entend un accord qui n'est pas
                     là, comme un fantôme. J'adore ! </p>
 
-                <div class="grid">
+                <div class="grid cols-3">
                     <aside>
                         <div class="video" aria-label="Vidéo PeerTube intégrée">
                             <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
@@ -1771,51 +1784,986 @@
     <section id="module-6" class="module" data-view hidden>
         <div class="panel pad">
             <div class="head">
-                <h2>Module 6 — Intégration</h2>
+                <h2>Module 6 — LE PHRASé RYTHMIQUE</h2>
                 <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
             </div>
-            <p class="muted">Décrivez ici le contenu du module 6.</p>
-            <div class="grid">
-                <article class="panel pad">
-                    <h3>Chaînage & automation</h3>
-                    <p>Expliquez comment tout relier pour produire un flux cohérent.</p>
-                    <div class="figure"><img src="assets/module6-image.jpg" alt="Illustration pour le module 6"/></div>
-                </article>
+            <p class="muted">Vitalité rythmique, placement, anticipations, retards, dynamique...</p>
+
+            <article class="panel pad">
+                <h3>1) COMPRENDRE </h3>
+                <p>Je ne pouvais pas faire une formation sur le Blues sans vous parler de ces artistes, poètes,
+                    vagabonds, sages ou pas du tout... Eclopés de la vie, déchus magnifiques, rois de leur village,
+                    dragueurs invétérés ou hommes battus, chiens errants, bras-cassés, branleurs célestes, en haillons
+                    ou costume de banquier, chuchoteurs ou crieurs de rues, inventeurs de leur propre tradition
+                    personnelle, devenus des légendes ou parfaitement oubliés. A vrai dire, je ne vois pas grand monde
+                    aujourd'hui, au coeur du XXIème siècle, d'aussi moderne qu'ils l'étaient il y a 100 ans et plus...
+                    Je vous parle aussi des "modernes d'aujourd'hui", singuliers en leur langage, quelques uns qui
+                    retiennent mon attention. Et je remercie aussi ceux, musiciens ou mélomanes, sculpteurs d'eux-mêmes,
+                    qui écrivent un truc dans leur coin et qui résistent, à leur façon au nivellement culturel par le
+                    bas, à la normalisation globale, ceux qui poursuivent toute leur vie une idée, un petit rêve de rien
+                    du tout, qui n'intéresse personne et qui les fait tenir debout... Et vive le Facteur Cheval ! </p>
+
+
                 <aside>
-                    <div class="video">
-                        <iframe title="Module 6 – Vidéo"
-                                src="https://peertube.cif.su/videos/embed/UUID_A_REMPLACER?title=0&peertubeLink=0"
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/nq3S5T2KkVsqNpVRVPiH5X?title=0&peertubeLink=0"
                                 allowfullscreen
-                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
                     </div>
                 </aside>
-            </div>
+                <br>
+
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>2) REPERER</h3>
+                <p>Tout ce qu'on a travaillé dans cette formation ne vaut pas un caramel sans une prise de conscience
+                    forte. Celle de l'importance du rythme pour que tous ces outils se mettent à fabriquer de la danse
+                    intérieure. Un bon musicien est un bon rythmicien !!! On fera bien entendu des formations dédiées au
+                    phrasé, et au rythme en général, mais ici on ouvre des portes pour que vous commenciez à mesurer à
+                    quel point votre niveau global est lié à votre niveau en rythme. On aborde pas mal de choses à
+                    expérimenter sur tous les Backing-tracks et à appliquer sur tous les autres modules qui doivent être
+                    revisités à la lumière de celui-ci. Vous trouverez les exemples et exercices dans le PDF en bas de
+                    cette page. Prenez le temps, le rythme c'est aussi une histoire de confiance et de décontraction.
+                    Parfois il faut lâcher quelque chose.</p>
+
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/roPVTJEdHYzPtUcjSujdgD?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+                <img src="assets/PLAN-VIDEO-IMPRO-BLUES-1-M6.png"
+                     alt="plan de la vidéo"
+                     style="display:block; margin:20px auto; max-width:800px; width:100%; height:auto; border-radius:12px;"/>
+                <br>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>3) PRATIQUER - BINÔMES DE DEBITS</h3>
+                <p>Une première vidéo très importante... Parfois les gens pensent que travailler en forêt est synonyme
+                    de petit machin, de truc sans importance... Ces 4 vidéos sont CAPITALES ! Si vous n'ancrez pas les
+                    différents débits de façon durable dans votre intérieur, ils ne risquent pas de ressortir nickel
+                    dans votre jeu de guitare. Vous ne ferez pas parfaitement sur une guitare ce que vous ne faites en
+                    marchant.</p>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>4) PRATIQUER - LA PORTE DES SEXTOLETS</h3>
+                <p>Le débit de sextolets est une sorte de porte, une plateforme, une interface qui sert de zone de
+                    contact... Il faut absolument le travailler de ces deux façons pour commencer. Cela peut prendre du
+                    temps hein ! Personne n'a dit qu'il fallait avoir bouclé cette formation en un mois, tout le monde
+                    prends beaucoup plus de temps. Et je crois que c'est bon signe. On n'est pas là pour consommer mais
+                    pour se mettre en travail sur soi, sur ses acquis, sur ce qu'on croit, ce dont on est certain... Et
+                    surtout pour prendre du plaisir. Prenez donc le temps qu'il faudra, Il se peut que cette formation
+                    vous accompagne longtemps, profitez de ses niveaux de lecture. Amusez vous ! </p>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>5) PRATIQUER - ETAGES DE DEBITS</h3>
+                <p>Les débits principaux que nous avons travaillés dans "BINÔMES DE DEBITS" doivent maintenant être mis
+                    en perspective pour les relier, comment passer de l'un à l'autre pour mettre en évidence leurs
+                    enchevêtrements ? Voici....</p>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>6) PRATIQUER - SWING RATIO</h3>
+                <p>Bon j'avoue, je suis avantagé, j'ai une jambe plus courte que l'autre... Soyez pas jaloux ! C'était
+                    bien pratique dans les virages sur une piste d'athlétisme. Mais ça, c'était avant... une autre
+                    vie. </p>
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/q9ToTFeRvff7aenKQ3dSqQ?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>7) LES ASTUCES...</h3>
+                <p>Passer du binaire au ternaire et l'inverse peut être vraiment casse-gueule au début. Dites vous bien
+                    que tout le monde peut y arriver. Parfois il faut attendre le déclic, écouter une chanson qui change
+                    votre vie, ou juste essayer, puis essayer de nouveau le lendemain et ainsi de suite. Et puis un
+                    matin, c'est là. Tranquillement... Des conseils pour vous, un motif à apprendre par coeur, pour
+                    dormir avec. Et puis on parle des mouches... Vous pouvez agrandir toutes les vidéos (en bas à droite
+                    de chacune d'entre elles).</p>
+
+                <div class="grid cols-2">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/rXXZe5gkhJ8WyNcP8FeW7z?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/rXXZe5gkhJ8WyNcP8FeW7z?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                </div>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>8) VOCABULAIRE</h3>
+                <p>Ici je joue volontairement simpliste au niveau mélodique pour que vous puissiez vous concentrer sur
+                    l'aspect rythmique. On navigue sans arrêt de ternaire à binaire, un peu de laid back pour
+                    s'habituer, essayer de vous rapprocher le plus possible du placement pour ressentir les choses. Vous
+                    pouvez passer pas mal de temps sur une phrase qu'elle commence à être parfaitement entendue
+                    intérieurement et restituée. Pas de BT pour ce vocabulaire, vous pouvez le jouer sur ceux des autres
+                    modules (j'ai oublié de le sauvegarder ! Je suis un champion, seul dans sa catégorie, la loose
+                    magnifique...)</p>
+
+                <aside>
+                    <div class="video" aria-label="Vidéo PeerTube intégrée">
+                        <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                        <iframe title="1_intro"
+                                src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                allowfullscreen
+                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                loading="lazy"></iframe>
+                    </div>
+                </aside>
+                <br>
+            </article>
+            <article class="panel pad">
+                <h3>6) BACKING-TRACKS 100% BIO</h3>
+                <p>Encore des Backing-tracks à l'ancienne, acoustiques ou électriques, binaires ou ternaires, en E, G ou
+                    D. En 12 mesures ou en 4... </p>
+
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/LIGHNIN-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/FURRY-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/BIG-BILL-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <div class="grid cols-2">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/STEVIE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <a href="impro_blues/m6/PDF-M6-IMPRO-BLUES-1-laurent-rousseau.pdf" target="_blank" rel="noopener">
+                <img src="assets/IMAGE-PDF-exo-IMPRO-BLUES-1.png" alt="Lien vers le PDF"
+                     style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"/>
+            </a>
+
         </div>
+
     </section>
 
     <section id="module-7" class="module" data-view hidden>
         <div class="panel pad">
             <div class="head">
-                <h2>Module 7 — Optimisation</h2>
+                <h2>Module 7 — LES BACKING-TRACKS DE TOUTE LA FORMATION</h2>
                 <a class="btn" href="#accueil" data-route>← Retour à l’accueil</a>
             </div>
-            <p class="muted">Décrivez ici le contenu du module 7.</p>
-            <div class="grid">
-                <article class="panel pad">
-                    <h3>Performance & qualité</h3>
-                    <p>Décrivez les critères, métriques et techniques d’optimisation.</p>
-                    <div class="figure"><img src="assets/module7-image.jpg" alt="Illustration pour le module 7"/></div>
-                </article>
-                <aside>
-                    <div class="video">
-                        <iframe title="Module 7 – Vidéo"
-                                src="https://peertube.cif.su/videos/embed/UUID_A_REMPLACER?title=0&peertubeLink=0"
-                                allowfullscreen
-                                sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-                    </div>
-                </aside>
-            </div>
+            <p class="muted">Tous les BT de tous les modules</p>
+
+            <article class="panel pad">
+                <h3>1) LES BACKING-TRACKS DES MODULES PRECEDENTS </h3>
+                <p>Vous trouverez sur cette page tous les BT de la formation réunis au même endroit. Comme un potager,
+                    mais avec des Backing-tracks ! J'ai l'impression que ça pourra être pratique pour vous... Je les
+                    range de la façon suivant : 1/ BT sur un seul accord statique - 2/ BT de travail de Binômes - 3/ BT
+                    de travail de lignes - 4/ BT de Blues entiers - 5/ BT des sections VOCABULAIRE (qui sont aussi des
+                    Blues entiers). Prenez la peine de tout essayer, de bosser les exercices proposés à la fin de chaque
+                    PDF (ce sont des exercices qui ont fait leurs preuves). Vous aurez besoin de temps pour tout mettre
+                    en place de façon cohérente. Des mois, peut-être des années. C'est normal. Si vous pouviez devenir
+                    un immense guitariste juste en prenant un café magique... Bah ça n'aurait aucune valeur ! Le PDF
+                    tout en bas reprends les pages d'exercices BT de tous les PDF. Oui, c'est vrai qu'on est bien
+                    ici. </p>
+
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M1_06_les_bt_à_lo"
+                                    src="https://peertube.cif.su/videos/embed/hi2PmA23bdiuLuA8njsDaw?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/nq3S5T2KkVsqNpVRVPiH5X?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/nq3S5T2KkVsqNpVRVPiH5X?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                    </aside>
+                </div>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>2) BT SUR 1 SEUL ACCORD</h3>
+                <p>Cette partie est très très très importante, si vous n'y passez pas assez de temps, vous ne
+                    parviendrez pas à jouer de façon fluide et riche sur le Blues entier. C'est dans cette partie que
+                    vous allez développer les couleurs, les idées, vos obsessions, votre style. Je connais plein de gens
+                    qui pensent maîtriser l'improvisation verticale (surtout des jazzmen) mais qui se plaignent
+                    d'accords qui durent trop longtemps, parce qu'au bout de 4 mesures, ils ont tout dit, il ont joué
+                    leur 3 arpèges et leur gamme de référence, et commencent à s'ennuyer... Imaginez le public... C'est
+                    sur de la musique modale (sans changements d'accords) qu'on développe les idées, la richesse du
+                    vocabulaire, les couleurs, l'inventivité, qu'on multiplie les pistes et les possibilités. Ne
+                    sous-estimez pas ce travail ! </p>
+
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M1_07_A_blues_binaire_acoustique_Robert"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/ROBERT-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M1_08_A_blues_ternaire_acoustique_Fred"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/FRED-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M1_09_E_blues_binaire_électrique_Eric"
+                                    src="https://peertube.cif.su/videos/embed/qKELt9mTcih1fXNQJYix6N?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/ERIC-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M1_10_E_blues_ternaire_électrique_Neil"
+                                    src="https://peertube.cif.su/videos/embed/6XUtAZSRmKdHDyfcGJ1sw2?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/NEIL-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M1_11_A_blues_binaire_acoustique_Skip"
+                                    src="https://peertube.cif.su/videos/embed/cwbnAurzvWimkw1LHqDCax?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/SKIP-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M2_08_E_blues_ternaire_acoustique_Charley"
+                                    src="https://peertube.cif.su/videos/embed/uvd6ASWX3PyZ1bwNttpK8F?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/CHARLEY-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M2_09_A_blues_ternaire_électrique_Bukka"
+                                    src="https://peertube.cif.su/videos/embed/x9JzmaY1JPqUaFhGfjnar1?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/BUKKA-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M2_10_A_blues_ternaire_électrique_Muddy"
+                                    src="https://peertube.cif.su/videos/embed/eW8mDE1E7B6LXic2KgwJf4?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/MUDDY-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M2_11_A_blues_binaire_acoustique_Francis"
+                                    src="https://peertube.cif.su/videos/embed/17QHEi86UAmwMq2voj9AhB?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/FRANCIS-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+
+                </div>
+                <div class="grid cols-2">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/JOHN-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M1_05_vocabulaire"
+                                    src="https://peertube.cif.su/videos/embed/rXXZe5gkhJ8WyNcP8FeW7z?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/BT-M1-VOCAB-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>3) TRAVAIL DES BINOMES</h3>
+                <p>Voici toutes les séries de binômes. C'est mégasupertopvachementgraveimportant, parce qu'ainsi vous
+                    préparez le travail des lignes. On travaille ici les accords deux par deux (et dans les deux sens !
+                    Ce qui développera aussi la directivité de votre jeu ainsi que votre oreille harmonique. Allez hop !
+                    Au boulot.</p>
+
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/LIGHNIN-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/FURRY-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/BIG-BILL-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/STEVIE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>4) TRAVAIL DES LIGNES</h3>
+                <p>Ligne par ligne, pour mettre les tournants, les angles, les carrefours en valeur... Entraînez-vous à
+                    viser le premier temps de la mesure 1 de la ligne suivante (l'accord sur lequel je m'arrête).
+                    Maintenant vous avez 1000 pistes pour essayer des choses, notes cibles, blue-notes, notes réelles,
+                    couples b3-M3, la pêche à la ligne. Vous vous souvenez... Buddy possède deux lignes 3
+                    différentes.</p>
+
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/LIGHNIN-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/FURRY-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/BIG-BILL-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <div class="grid cols-2">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/STEVIE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>5) BLUES ENTIERS</h3>
+                <p>Le grand bain, on n'a pas pied, mais on n'a pas peur non plus. Si vous éprouvez encore de la
+                    difficulté à suivre la grille, si vous vous perdez encore, alors je vous conseille - 1/de jouer
+                    moins de notes dans vos impros pour vous reconnecter au BT - 2/de retravailler les lignes et les
+                    binômes... Attention Jeff-Lee ne fait pas 12 mesures, et pour Elisabeth et Big Bill je signifie le
+                    code couleur du V7 en mesure 12 bien que je fasse des variations.
+                    Amusez vous !!!!! </p>
+
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/LIGHNIN-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/FURRY-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/BIG-BILL-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/STEVIE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/JEF-LEE-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <article class="panel pad">
+                <h3>6) BLUES ENTIERS de VOCABULAIRE</h3>
+                <p>Et on en rajoute d'autres. Cooooooooooooool.</p>
+
+                <div class="grid cols-3">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M3_10_vocabulaire_2"
+                                    src="https://peertube.cif.su/videos/embed/mxcLsjppghk4E51B694Sxh?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/M3-BT-VOCAB-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/eWkCECBdKWj5RQeKrPeLmc?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/FURRY-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="1_intro"
+                                    src="https://peertube.cif.su/videos/embed/b2kY3Nce3Kkjupep13QeVx?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m6/BIG-BILL-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <div class="grid cols-2">
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M2_06_vocabulaire_niveau_1"
+                                    src="https://peertube.cif.su/videos/embed/sp2osbydNu85oMLwkLC7kj?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/BT-M2-VOCAB-N1-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                    <aside>
+                        <div class="video" aria-label="Vidéo PeerTube intégrée">
+                            <!-- Remplacez l'URL ci‑dessous par votre URL d'embed PeerTube -->
+                            <iframe title="M2_07_vocabulaire_niveau_2"
+                                    src="https://peertube.cif.su/videos/embed/jJXaNhsEpKqXhjwrK18CLK?title=0&peertubeLink=0"
+                                    allowfullscreen
+                                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                                    loading="lazy"></iframe>
+                        </div>
+                        <a href="impro_blues/m7/BT-M2-VOCAB-NIV2-MP3.mp3" target="_blank"
+                           style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"><span>TELECHARGER MP3</span></a>
+                    </aside>
+                </div>
+                <br>
+
+            </article>
+            <br>
+            <a href="impro_blues/m7/PDF-M7-IMPRO-BLUES-1-laurent-rousseau.pdf" target="_blank" rel="noopener">
+                <img src="assets/IMAGE-PDF-exo-IMPRO-BLUES-1.png" alt="Lien vers le PDF"
+                     style="display:block; margin:20px auto; max-width:500px; width:100%; height:auto; border-radius:12px;"/>
+            </a>
+
         </div>
+
     </section>
 
     <section id="module-8" class="module" data-view hidden>
