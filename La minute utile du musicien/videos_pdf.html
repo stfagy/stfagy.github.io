@@ -5,8 +5,11 @@
 body{font-family:Arial}table{border-collapse:collapse;width:100%}
 th,td{border:1px solid #ccc;padding:8px}th{background:#f2f2f2}
 .color-box{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:middle;border:1px solid #999}
-.filters{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 20px 0;align-items:center}
-.chip{display:inline-flex;align-items:center;gap:6px}
+.filters{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 20px;align-items:center}
+.f-diff{display:flex;gap:10px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:8px; border:1px solid #ddd;border-radius:10px; padding:6px 10px;background:#fff;}
+.chip input{margin:0}
+.swatch{display:inline-block;width:12px;height:12px;border:1px solid #999}
 .muted{color:#666;font-size:.9em}
 </style>
 
@@ -38,13 +41,13 @@ th,td{border:1px solid #ccc;padding:8px}th{background:#f2f2f2}
 <input id='q' onkeyup='updateFilters()' placeholder='Rechercher (min. 3 car.)…' style='width:300px;padding:8px'>
 <div class='f-diff'>
 <div class='muted'>Filtrer par difficulté :</div>
-<label class='chip'><span class='color-box' style='background:#f3f3f3'></span><input type='checkbox' value='débutant' onchange='updateFilters()'> débutant</label>
-<label class='chip'><span class='color-box' style='background:#e8d418'></span><input type='checkbox' value='novice' onchange='updateFilters()'> novice</label>
-<label class='chip'><span class='color-box' style='background:#ee1611'></span><input type='checkbox' value='intermédiaire' onchange='updateFilters()'> intermédiaire</label>
-<label class='chip'><span class='color-box' style='background:#18e821'></span><input type='checkbox' value='avancé' onchange='updateFilters()'> avancé</label>
-<label class='chip'><span class='color-box' style='background:#1876e8'></span><input type='checkbox' value='expert' onchange='updateFilters()'> expert</label>
-<label class='chip'><span class='color-box' style='background:#82240b'></span><input type='checkbox' value='maître' onchange='updateFilters()'> maître</label>
-<label class='chip'><span class='color-box' style='background:#0c0c0c'></span><input type='checkbox' value='grand maître' onchange='updateFilters()'> grand maître</label>
+<label class='chip'><input type='checkbox' value='débutant' onchange='updateFilters()' checked><span>débutant</span><span class='swatch' style='background:#f3f3f3'></span></label>
+<label class='chip'><input type='checkbox' value='novice' onchange='updateFilters()'><span>novice</span><span class='swatch' style='background:#e8d418'></span></label>
+<label class='chip'><input type='checkbox' value='intermédiaire' onchange='updateFilters()'><span>intermédiaire</span><span class='swatch' style='background:#ee1611'></span></label>
+<label class='chip'><input type='checkbox' value='avancé' onchange='updateFilters()'><span>avancé</span><span class='swatch' style='background:#18e821'></span></label>
+<label class='chip'><input type='checkbox' value='expert' onchange='updateFilters()'><span>expert</span><span class='swatch' style='background:#1876e8'></span></label>
+<label class='chip'><input type='checkbox' value='maître' onchange='updateFilters()'><span>maître</span><span class='swatch' style='background:#82240b'></span></label>
+<label class='chip'><input type='checkbox' value='grand maître' onchange='updateFilters()'><span>grand maître</span><span class='swatch' style='background:#0c0c0c'></span></label>
 </div></div>
 <table id='videoTable'>
 <thead><tr><th>Miniature</th><th>Vidéo</th><th>Date</th><th>PDFs</th></tr></thead>
