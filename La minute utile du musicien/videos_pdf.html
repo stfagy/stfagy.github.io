@@ -17,19 +17,14 @@ th,td{border:1px solid #ccc;padding:8px}th{background:#f2f2f2}
         function updateFilters(){
             const q = document.getElementById('q').value.toLowerCase();
             const checks = Array.from(document.querySelectorAll('.f-diff input[type=checkbox]:checked'))
-                                .map(cb => cb.value); // valeurs = libellés difficulté
+                                .map(cb => cb.value);
             const rows = document.querySelectorAll('#videoTable tbody tr');
 
             rows.forEach(r => {
                 const txt = r.children[1].innerText.toLowerCase(); // colonne « Vidéo »
                 const diffs = (r.getAttribute('data-diffs') || '').toLowerCase().split(',').filter(Boolean);
-
-                // Filtre texte (si < 3, on considère vide)
                 const passText = (q.length < 3) || txt.includes(q);
-
-                // Filtre difficulté (si rien coché -> on considère vide)
                 const passDiff = (checks.length === 0) || diffs.some(d => checks.includes(d));
-
                 r.style.display = (passText && passDiff) ? '' : 'none';
             });
         }
