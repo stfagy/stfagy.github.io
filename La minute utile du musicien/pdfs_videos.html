@@ -58,6 +58,10 @@
       <div id="diff-buttons"></div>
       <div class="toolbar">
         <label>
+          <span class="muted">Thème&nbsp;:</span>
+          <select id="theme"><option value="">Tous les thèmes</option></select>
+        </label>
+        <label>
           <span class="muted">Trier&nbsp;:</span>
           <select id="sort">
             <option value="recent">par vidéo la plus récente</option>
@@ -91,9 +95,9 @@
     };
 
     // État global
-    const pdfMap = new Map(); // key=path, value={nom, path, gpx, difficulte, videos:[{id,nom,url,thumbnail,created_at}] , latest: date}
-    let fetchedTotal = 0, expectedTotal = 0, nextOffset = 0, fullyLoaded = false;
-    let currentQ = "", currentDiffs = [], currentSort = "recent";
+    const pdfMap = new Map(); // key=path, value={nom, path, gpx, difficulte, theme, videos:[...], latest}
+    let fetchedTotal = 0, expectedTotal = 0, nextOffset = 0;
+    let currentQ = "", currentSort = "recent";
     let debounceId;
 
     function setStatus(msg, isError=false) {
@@ -157,13 +161,36 @@
       }, 300);
     }
 
+    function getThemeFromPath(path) {
+      if (!path) return "";
+      // Normaliser séparateur
+      const parts = path.split("/").filter(Boolean);
+      // Cherche le dernier dossier (avant le fichier)
+      if (parts.length >= 2) {
+        return parts[parts.length - 2];
+      }
+      return "";
+    }
+
+    function renderThemeFilter() {
+      const sel = document.getElementById("theme");
+      const themes = Array.from(new Set(
+        Array.from(pdfMap.values()).map(p => p.theme).filter(Boolean)
+      )).sort((a,b) => a.localeCompare(b));
+      sel.innerHTML = `<option value="">Tous les thèmes</option>` + themes.map(t => `<option value="${t}">${t}</option>`).join("");
+      sel.onchange = applyFiltersAndRender;
+    }
+
     function applyFiltersAndRender() {
-      currentDiffs = getSelectedDiffs();
+      const currentDiffs = getSelectedDiffs();
       currentSort = document.getElementById("sort").value;
+      const selTheme = document.getElementById("theme").value;
+
       const items = Array.from(pdfMap.values()).filter(p => {
         const okQ = !currentQ || (p.nom?.toLowerCase().includes(currentQ.toLowerCase()));
         const okD = !currentDiffs.length || (p.difficulte && currentDiffs.includes(p.difficulte));
-        return okQ && okD;
+        const okT = !selTheme || p.theme === selTheme;
+        return okQ && okD && okT;
       });
 
       if (currentSort === "alpha") {
@@ -189,9 +216,11 @@
       }
 
       for (const p of items) {
-        const chip = p.difficulte ?
+        const diffChip = p.difficulte ?
           `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte] || "#ccc"}"></span>${p.difficulte}</span>`
           : `<span class="chip"><span class="swatch" style="background:#ccc"></span>non renseigné</span>`;
+
+        const themeChip = p.theme ? `<span class="chip">thème: ${p.theme}</span>` : "";
 
         const vids = (p.videos || []).slice().sort((a,b) => {
           const da = a.created_at ? new Date(a.created_at).getTime() : 0;
@@ -216,7 +245,8 @@
         card.innerHTML = `
           <div class="pdf-header">
             <h3 class="pdf-title"><a href="${p.path}" target="_blank" rel="noopener">${p.nom || p.path}</a>${gpx}</h3>
-            ${chip}
+            ${diffChip}
+            ${themeChip}
             <span class="muted">· ${p.videos?.length || 0} vidéo(s)</span>
             ${p.latest ? `<span class="muted">· maj: ${formatDateFR(p.latest)}</span>` : ""}
           </div>
@@ -227,7 +257,6 @@
     }
 
     async function fetchAllVideos() {
-      // On parcourt toutes les pages de /videos (tri desc pour récupérer d'abord les plus récentes)
       try {
         setStatus("Chargement…");
         while (true) {
@@ -235,7 +264,8 @@
           const res = await fetch(`${API}/videos?` + params.toString());
           if (!res.ok) throw new Error("API " + res.status);
           const data = await res.json();
-          expectedTotal = data.total || 0;
+          const total = data.total || 0;
+          if (!expectedTotal) expectedTotal = total;
           const items = data.items || [];
           if (!items.length) break;
 
@@ -255,6 +285,7 @@
                   path: p.path,
                   gpx: p.gpx || "",
                   difficulte: p.difficulte || "",
+                  theme: getThemeFromPath(p.path),
                   videos: [], latest: null
                 });
               }
@@ -281,9 +312,9 @@
 
           if (nextOffset >= expectedTotal || items.length < PAGE_SIZE) break;
         }
-        fullyLoaded = true;
         setStatus("");
         setCounts();
+        renderThemeFilter();
         applyFiltersAndRender();
       } catch (e) {
         console.error(e);
