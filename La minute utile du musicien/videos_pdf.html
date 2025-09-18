@@ -1,196 +1,218 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>La Minute Utile du Musicien – Vidéos</title>
-  <style>
-    body { font-family: Arial; margin: 20px; background:#fafafa; }
-    h1 { margin-bottom: 15px; }
-    .filters { margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
-    input { padding: 6px 10px; font-size: 14px; }
-    .video { border: 1px solid #ddd; border-radius: 10px; background:#fff; padding: 12px; margin-bottom: 15px; display: flex; gap: 15px; box-shadow:0 2px 4px rgba(0,0,0,.05);}
-    .video img { max-width: 160px; border-radius: 6px; }
-    .pdfs { margin-top: 8px; }
-    .pdfs li { font-size: 0.9em; }
-    .chip {
-      display:inline-flex; align-items:center; gap:6px;
-      border:1px solid #ccc; border-radius:16px;
-      padding:2px 8px; font-size:0.85em;
-    }
-    .swatch {
-      display:inline-block; width:12px; height:12px;
-      border:1px solid #999; border-radius:50%;
-    }
-    #pager { margin-top:20px; display:flex; gap:10px; align-items:center; }
-    #pager button { padding:6px 12px; }
-    .diff-btn {
-      border: 1px solid #999;
-      border-radius: 16px;
-      padding: 4px 10px;
-      cursor: pointer;
-      font-size: 0.85em;
-      margin-right: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background:#fff;
-    }
-    .diff-btn .swatch {
-      width: 12px; height: 12px;
-      border-radius: 50%; border:1px solid #666;
-    }
-    .diff-btn.active {
-      box-shadow: inset 0 0 4px rgba(0,0,0,0.6);
-      font-weight: bold;
-    }
-    #status { margin: 10px 0; color:#666; font-size: .9em; }
-    #status.error { color:#b00020; }
-  </style>
+    <meta charset="UTF-8">
+    <title>La Minute Utile du Musicien – Vidéos</title>
+    <style>
+        :root { --gap: 10px; }
+        body { font-family: Arial, sans-serif; margin: 0; background:#fafafa; }
+        header { position: sticky; top: 0; z-index: 10; background: rgba(250,250,250,0.95); backdrop-filter: blur(4px); padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+        h1 { margin: 0 0 10px; font-size: 20px; }
+        .filters { display: flex; gap: var(--gap); flex-wrap: wrap; align-items: center; }
+        input { padding: 6px 10px; font-size: 14px; border:1px solid #ccc; border-radius: 6px; }
+        #diff-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+        .diff-btn {
+          border: 1px solid #999; border-radius: 16px; padding: 4px 10px;
+          cursor: pointer; font-size: 0.85em; display: inline-flex; align-items: center; gap: 6px; background:#fff;
+        }
+        .diff-btn .swatch { width: 12px; height: 12px; border-radius: 50%; border:1px solid #666; }
+        .diff-btn.active { box-shadow: inset 0 0 4px rgba(0,0,0,0.6); font-weight: bold; }
+
+        main { padding: 16px; max-width: 1100px; margin: 0 auto; }
+        #status { margin: 10px 0; color:#666; font-size: .9em; }
+        #status.error { color:#b00020; }
+
+        .video {
+          border: 1px solid #ddd; border-radius: 10px; background:#fff; padding: 12px; margin-bottom: 15px;
+          display: flex; gap: 15px; box-shadow:0 2px 4px rgba(0,0,0,.05);
+        }
+        .video img { max-width: 160px; border-radius: 6px; }
+        .chip {
+          display:inline-flex; align-items:center; gap:6px; border:1px solid #ccc; border-radius:16px; padding:2px 8px; font-size:0.85em;
+        }
+        .swatch { display:inline-block; width:12px; height:12px; border:1px solid #999; border-radius:50%; }
+        .pdfs { margin-top: 8px; }
+        .pdfs li { font-size: 0.9em; }
+
+        #loader { text-align:center; color:#666; padding: 16px; }
+    </style>
 </head>
 <body>
-  <h1>Vidéos & PDFs associés</h1>
+<header>
+    <h1>Vidéos & PDFs associés</h1>
+    <div class="filters">
+        <input id="q" placeholder="Rechercher…" oninput="debouncedSearch()">
+        <div id="diff-buttons"></div>
+    </div>
+</header>
 
-  <div class="filters">
-    <input id="q" placeholder="Rechercher (min. 3 caractères)…" oninput="debouncedSearch()">
-    <div id="diff-buttons"></div>
-  </div>
+<main>
+    <div id="status"></div>
+    <div id="results"></div>
+    <div id="loader" hidden>Chargement…</div>
+    <div id="sentinel"></div>
+</main>
 
-  <div id="status"></div>
-  <div id="results"></div>
-  <div id="pager"></div>
+<>
+const API = "https://stf-minute-api.onrender.com";
+const PAGE_SIZE = 20;
 
-  <script>
-    const API = "https://stf-minute-api.onrender.com";
-    const PAGE_SIZE = 20;
-    let searchTimeout;
+// Palette couleurs
+const diffColors = {
+"débutant": "#f3f3f3",
+"novice": "#e8d418",
+"intermédiaire": "#ee1611",
+"avancé": "#18e821",
+"expert": "#1876e8",
+"maître": "#82240b",
+"grand maître": "#0c0c0c"
+};
 
-    // Couleurs des difficultés
-    const diffColors = {
-      "débutant": "#f3f3f3",
-      "novice": "#e8d418",
-      "intermédiaire": "#ee1611",
-      "avancé": "#18e821",
-      "expert": "#1876e8",
-      "maître": "#82240b",
-      "grand maître": "#0c0c0c"
-    };
+// Etat
+let offset = 0, total = 0;
+let loading = false, done = false;
+let currentQ = "", currentDiffs = [];
+let debounceId;
 
-    function setStatus(msg, isError=false) {
-      const s = document.getElementById("status");
-      s.className = isError ? "error" : "";
-      s.textContent = msg || "";
-    }
+function setStatus(msg, isError=false) {
+const s = document.getElementById("status");
+s.className = isError ? "error" : "";
+s.textContent = msg || "";
+}
+function setLoader(visible) {
+document.getElementById("loader").hidden = !visible;
+}
 
-    function debouncedSearch() {
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => loadVideos(0), 400);
-    }
+function renderDiffButtons() {
+const container = document.getElementById("diff-buttons");
+container.innerHTML = "";
+Object.entries(diffColors).forEach(([label, color]) => {
+const btn = document.createElement("button");
+btn.className = "diff-btn";
+btn.dataset.value = label;
+btn.innerHTML = `<span class="swatch" style="background:${color}"></span> ${label}`;
+btn.onclick = () => {
+btn.classList.toggle("active");
+resetAndSearch();
+};
+container.appendChild(btn);
+});
+}
 
-    function renderDiffButtons() {
-      const container = document.getElementById("diff-buttons");
-      container.innerHTML = "";
-      Object.entries(diffColors).forEach(([label, color]) => {
-        const btn = document.createElement("button");
-        btn.className = "diff-btn";
-        btn.dataset.value = label;
-        btn.innerHTML = `<span class="swatch" style="background:${color}"></span> ${label}`;
-        btn.onclick = () => {
-          btn.classList.toggle("active");
-          loadVideos(0);
-        };
-        container.appendChild(btn);
-      });
-    }
+function getSelectedDiffs() {
+return Array.from(document.querySelectorAll(".diff-btn.active")).map(b => b.dataset.value);
+}
 
-    function getSelectedDiffs() {
-      return Array.from(document.querySelectorAll(".diff-btn.active"))
-                  .map(b => b.dataset.value);
-    }
+function debouncedSearch() {
+clearTimeout(debounceId);
+debounceId = setTimeout(resetAndSearch, 300); // ← 300 ms
+}
 
-    async function loadVideos(offset = 0) {
-      try {
-        setStatus("Chargement…");
-        const q = document.getElementById("q").value.trim();
-        const diffs = getSelectedDiffs();
-        const params = new URLSearchParams({ q, limit: PAGE_SIZE, offset });
-        diffs.forEach(d => params.append("diff", d)); // nécessite l’API multi-diff côté serveur
+function resetAndSearch() {
+currentQ = document.getElementById("q").value.trim();
+currentDiffs = getSelectedDiffs();
+offset = 0; total = 0; done = false;
+document.getElementById("results").innerHTML = "";
+setStatus("");
+loadNextPage();
+}
 
-        const res = await fetch(`${API}/videos?` + params.toString());
-        if (!res.ok) throw new Error(`API ${res.status}`);
-        const data = await res.json();
+async function loadNextPage() {
+if (loading || done) return;
+loading = true; setLoader(true);
 
-        renderResults(data.items);
-        renderPager(data.total, offset);
-        setStatus(data.total ? "" : "Aucun résultat.");
-      } catch (e) {
-        console.error(e);
-        setStatus("Erreur de chargement des vidéos.", true);
-      }
-    }
+try {
+const params = new URLSearchParams({ q: currentQ, limit: PAGE_SIZE, offset });
+currentDiffs.forEach(d => params.append("diff", d));
+const res = await fetch(`${API}/videos?` + params.toString());
+if (!res.ok) throw new Error(`API ${res.status}`);
+const data = await res.json();
 
-    function renderResults(items) {
-      const container = document.getElementById("results");
-      container.innerHTML = "";
-      items.forEach(v => {
-        const diffChips = v.difficulties.map(d => `
-          <span class="chip">
-            <span class="swatch" style="background:${diffColors[d] || "#ccc"}"></span>
-            ${d}
-          </span>
-        `).join(" ");
+total = data.total ?? 0;
+renderAppend(data.items || []);
+offset += PAGE_SIZE;
+if (offset >= total || (data.items || []).length < PAGE_SIZE) done = true;
+if (offset === 0 && total === 0) setStatus("Aucun résultat.");
+} catch (e) {
+console.error(e);
+setStatus("Erreur de chargement.", true);
+} finally {
+loading = false; setLoader(false);
+}
+}
 
-        const pdfList = v.pdfs.map(p => `
-          <li>
-            <a href="${p.path}" target="_blank">${p.nom}</a>
-            ${p.gpx ? `(<a href="${p.gpx}" target="_blank">GPX</a>)` : ""}
-            ${p.difficulte ? `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte]||"#ccc"}"></span>${p.difficulte}</span>` : ""}
-          </li>
-        `).join("");
 
-        const div = document.createElement("div");
-        div.className = "video";
-        div.innerHTML = `
-          <a href="${v.url}" target="_blank">
-            <img src="${v.thumbnail}" alt="miniature">
-          </a>
-          <div>
-            <h3>${v.nom}</h3>
-            <div><b>Date :</b> ${v.created_at || "-"}</div>
-            <div><b>Difficultés :</b> ${diffChips || "-"}</div>
-            <ul class="pdfs">${pdfList}</ul>
-          </div>
-        `;
-        container.appendChild(div);
-      });
-    }
+function formatDateFR(isoStr) {
+if (!isoStr) return "-";
+const d = new Date(isoStr);
+const now = new Date();
+const diffMs = now - d;
+const diffSec = Math.floor(diffMs / 1000);
+const diffMin = Math.floor(diffSec / 60);
+const diffH = Math.floor(diffMin / 60);
+const diffJ = Math.floor(diffH / 24);
 
-    function renderPager(total, offset) {
-      const pager = document.getElementById("pager");
-      pager.innerHTML = "";
-      const currentPage = Math.floor(offset / PAGE_SIZE) + 1;
-      const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
+if (diffSec < 60) return "à l'instant";
+if (diffMin < 60) return `il y a ${diffMin} min`;
+if (diffH < 24) return `il y a ${diffH} h`;
+if (diffJ === 1) return "hier";
+if (diffJ < 7) return `il y a ${diffJ} j`;
 
-      const label = document.createElement("span");
-      label.textContent = `Page ${currentPage} / ${totalPages}`;
-      pager.append(label);
+// sinon format complet français
+return d.toLocaleString("fr-FR", {
+day: "2-digit", month: "2-digit", year: "numeric",
+hour: "2-digit", minute: "2-digit"
+});
+}
 
-      if (currentPage > 1) {
-        const prev = document.createElement("button");
-        prev.textContent = "← Précédent";
-        prev.onclick = () => loadVideos(offset - PAGE_SIZE);
-        pager.prepend(prev);
-      }
-      if (currentPage < totalPages) {
-        const next = document.createElement("button");
-        next.textContent = "Suivant →";
-        next.onclick = () => loadVideos(offset + PAGE_SIZE);
-        pager.append(next);
-      }
-    }
 
-    // init
-    renderDiffButtons();
-    loadVideos(0);
-  </script>
+function renderAppend(items) {
+const container = document.getElementById("results");
+items.forEach(v => {
+const diffChips = (v.difficulties || []).map(d => `
+<span class="chip">
+            <span class="swatch" style="background:${diffColors[d] || " #ccc"}"></span>
+${d}
+</span>
+`).join(" ");
+
+const pdfList = (v.pdfs || []).map(p => `
+<li>
+    <a href="${p.path}" target="_blank">${p.nom}</a>
+    ${p.gpx ? `(<a href="${p.gpx}" target="_blank">GPX</a>)` : ""}
+    ${p.difficulte ? `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte]||"
+                                               #ccc"}"></span>${p.difficulte}</span>` : ""}
+</li>
+`).join("");
+
+const div = document.createElement("div");
+div.className = "video";
+div.innerHTML = `
+<a href="${v.url}" target="_blank">
+    <img src="${v.thumbnail}" alt="miniature">
+</a>
+<div>
+    <h3>${v.nom}</h3>
+    <div><b>Date :</b> ${formatDateFR(v.created_at)}</div>
+    <div><b>Difficultés :</b> ${diffChips || "-"}</div>
+    <ul class="pdfs">${pdfList}</ul>
+</div>
+`;
+container.appendChild(div);
+});
+}
+
+// Infinite scroll
+const observer = new IntersectionObserver(entries => {
+if (entries[0].isIntersecting) loadNextPage();
+}, { rootMargin: '600px' });
+
+(function init() {
+renderDiffButtons();
+document.getElementById("q").addEventListener("input", debouncedSearch);
+observer.observe(document.getElementById("sentinel"));
+resetAndSearch();
+})();
+</script>
 </body>
 </html>
