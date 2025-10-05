@@ -8,7 +8,7 @@ let currentTuning     = [];
 let currentMarkers    = [];
 let currentFrets   = null;
 
-const API_URL    = "http://localhost:8000/fretboard";
+const API_URL    = "https://stf-minute-api.onrender.com/fretboard";
 const NOTE_NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 const INTERVALS_MAPPING = {
   0:  { label: "R",  color: "#000000" },
