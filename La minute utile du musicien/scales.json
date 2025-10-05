@@ -1,0 +1,15 @@
+[
+  { "name": "Pentatonique Majeure",       "pattern": [0,2,4,7,9] },
+  { "name": "Pentatonique Mineure",       "pattern": [0,3,5,7,10] },
+  { "name": "Gamme Majeure (Ionien)",     "pattern": [0,2,4,5,7,9,11] },
+  { "name": "Mode Dorien",                "pattern": [0,2,3,5,7,9,10], "alias": ["Mineur dorien"] },
+  { "name": "Mode Phrygien",              "pattern": [0,1,3,5,7,8,10], "alias": ["Mineur phrygien"] },
+  { "name": "Mode Lydien",                "pattern": [0,2,4,6,7,9,11], "alias": ["Majeur lydien"] },
+  { "name": "Mode Mixolydien",            "pattern": [0,2,4,5,7,9,10], "alias": ["Majeur mixolydien"] },
+  { "name": "Gamme Mineure Naturelle (Éolien)", "pattern": [0,2,3,5,7,8,10], "alias": ["Mineur éolien"] },
+  { "name": "Mode Locrien",               "pattern": [0,1,3,5,6,8,10], "alias": ["Mineur locrien"] },
+  { "name": "Gamme Mineure Harmonique",   "pattern": [0,2,3,5,7,8,11] },
+  { "name": "Gamme Mineure Mélodique",    "pattern": [0,2,3,5,7,9,11] },
+  { "name": "Blues Mineur",               "pattern": [0,3,5,6,7,10] },
+  { "name": "Blues Majeur",               "pattern": [0,2,3,4,7,9] }
+]
