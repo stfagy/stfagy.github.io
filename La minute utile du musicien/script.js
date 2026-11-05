@@ -8,7 +8,7 @@ let currentTuning     = [];
 let currentMarkers    = [];
 let currentFrets   = null;
 
-const API_URL    = "https://stf-minute-api.onrender.com/fretboard";
+const API_URL    = "https://stf-minute-api.stfaugy.workers.dev/fretboard";
 const NOTE_NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 const INTERVALS_MAPPING = {
   0:  { label: "R",  color: "#000000" },
@@ -165,8 +165,6 @@ function drawFretboard() {
     entry   = chordsList.find(e => e.name === chordName);
     pattern = entry?.pattern;
   }
-  // Normalise le motif sur 12 demi-tons
-  const pattern12 = pattern.map(p => ((p % 12) + 12) % 12);
   // Rien à afficher ?
   if (!pattern) {
     document.getElementById("titleDisplay").textContent    = "";
@@ -175,6 +173,8 @@ function drawFretboard() {
     document.getElementById("fretboard").innerHTML        = "";
     return;
   }
+  // Normalise le motif sur 12 demi-tons après validation.
+  const pattern12 = pattern.map(p => ((p % 12) + 12) % 12);
 
   // 1) Titre en haut : "C Pentatonique Majeure" ou "D m7"
   document.getElementById("titleDisplay").textContent = `${root} ${entry.name}`;
