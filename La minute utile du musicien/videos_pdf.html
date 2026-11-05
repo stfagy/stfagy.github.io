@@ -54,8 +54,22 @@
   </main>
 
   <script>
-    const API = "https://stf-minute-api.onrender.com";
+    const CATALOGUE_URL = "./catalogue_videos.json";
+    let catalogue = [];
     const PAGE_SIZE = 20;
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+      })[char]);
+    }
+    function safeUrl(value) {
+      const url = String(value || "");
+      try {
+        const parsed = new URL(url, location.href);
+        return url && ["http:", "https:"].includes(parsed.protocol) ? escapeHTML(url) : "#";
+      } catch { return "#"; }
+    }
 
     // Palette couleurs
     const diffColors = {
@@ -69,7 +83,7 @@
     };
 
     // Etat
-    let offset = 0, total = 0;
+    let offset = 0, total = 0, filtered = [];
     let loading = false, done = false;
     let currentQ = "", currentDiffs = [];
     let debounceId;
@@ -114,31 +128,23 @@
       offset = 0; total = 0; done = false;
       document.getElementById("results").innerHTML = "";
       setStatus("");
+      if (!catalogue.length) return;
+      const query = currentQ.toLocaleLowerCase("fr").trim();
+      filtered = catalogue.filter(v => (!query || (v.nom || "").toLocaleLowerCase("fr").includes(query))
+        && (!currentDiffs.length || currentDiffs.some(diff => (v.difficulties || []).includes(diff))));
+      total = filtered.length;
+      if (!total) { setStatus("Aucun résultat."); return; }
       loadNextPage();
     }
 
-    async function loadNextPage() {
+    function loadNextPage() {
       if (loading || done) return;
-      loading = true; setLoader(true);
-
-      try {
-        const params = new URLSearchParams({ q: currentQ, limit: PAGE_SIZE, offset });
-        currentDiffs.forEach(d => params.append("diff", d));
-        const res = await fetch(`${API}/videos?` + params.toString());
-        if (!res.ok) throw new Error(`API ${res.status}`);
-        const data = await res.json();
-
-        total = data.total ?? 0;
-        renderAppend(data.items || []);
-        offset += PAGE_SIZE;
-        if (offset >= total || (data.items || []).length < PAGE_SIZE) done = true;
-        if (offset === 0 && total === 0) setStatus("Aucun résultat.");
-      } catch (e) {
-        console.error(e);
-        setStatus("Erreur de chargement.", true);
-      } finally {
-        loading = false; setLoader(false);
-      }
+      loading = true;
+      const items = filtered.slice(offset, offset + PAGE_SIZE);
+      renderAppend(items);
+      offset += items.length;
+      done = offset >= total;
+      loading = false;
     }
 
 
@@ -179,20 +185,20 @@
 
         const pdfList = (v.pdfs || []).map(p => `
           <li>
-            <a href="${p.path}" target="_blank">${p.nom}</a>
-            ${p.gpx ? `(<a href="${p.gpx}" target="_blank">GPX</a>)` : ""}
-            ${p.difficulte ? `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte]||"#ccc"}"></span>${p.difficulte}</span>` : ""}
+            <a href="${safeUrl(p.path)}" target="_blank">${escapeHTML(p.nom)}</a>
+            ${p.gpx ? `(<a href="${safeUrl(p.gpx)}" target="_blank">GPX</a>)` : ""}
+            ${p.difficulte ? `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte]||"#ccc"}"></span>${escapeHTML(p.difficulte)}</span>` : ""}
           </li>
         `).join("");
 
         const div = document.createElement("div");
         div.className = "video";
         div.innerHTML = `
-          <a href="${v.url}" target="_blank">
-            <img src="${v.thumbnail}" alt="miniature">
+          <a href="${safeUrl(v.url)}" target="_blank">
+            <img src="${safeUrl(v.thumbnail)}" alt="miniature">
           </a>
           <div>
-            <h3>${v.nom}</h3>
+            <h3>${escapeHTML(v.nom)}</h3>
             <div><b>Date :</b> ${formatDateFR(v.created_at)}</div>
             <div><b>Difficultés :</b> ${diffChips || "-"}</div>
             <ul class="pdfs">${pdfList}</ul>
@@ -207,11 +213,22 @@
       if (entries[0].isIntersecting) loadNextPage();
     }, { rootMargin: '600px' });
 
-    (function init() {
+    (async function init() {
       renderDiffButtons();
       document.getElementById("q").addEventListener("input", debouncedSearch);
       observer.observe(document.getElementById("sentinel"));
-      resetAndSearch();
+      setStatus("Chargement du catalogue…");
+      try {
+        const response = await fetch(CATALOGUE_URL, {cache: "no-cache"});
+        if (!response.ok) throw new Error("JSON HTTP " + response.status);
+        const data = await response.json();
+        if (data.schema_version !== 1 || !Array.isArray(data.items)) throw new Error("Catalogue invalide");
+        catalogue = data.items;
+        resetAndSearch();
+      } catch (error) {
+        console.error(error);
+        setStatus("Catalogue indisponible. Veuillez réessayer ultérieurement.", true);
+      }
     })();
   </script>
 </body>
