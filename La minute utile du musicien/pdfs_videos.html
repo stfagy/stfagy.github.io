@@ -79,9 +79,20 @@
   </main>
 
   <script>
-    // API Render (FastAPI)
-    const API = "https://stf-minute-api.onrender.com";
-    const PAGE_SIZE = 100; // gros fetch pour agréger rapidement
+    const CATALOGUE_URL = "./catalogue_pdfs.json";
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+      })[char]);
+    }
+    function safeUrl(value) {
+      const url = String(value || "");
+      try {
+        const parsed = new URL(url, location.href);
+        return url && ["http:", "https:"].includes(parsed.protocol) ? escapeHTML(url) : "#";
+      } catch { return "#"; }
+    }
 
     // Palette couleurs (identique à videos_pdf.html)
     const diffColors = {
@@ -217,10 +228,10 @@
 
       for (const p of items) {
         const diffChip = p.difficulte ?
-          `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte] || "#ccc"}"></span>${p.difficulte}</span>`
+          `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte] || "#ccc"}"></span>${escapeHTML(p.difficulte)}</span>`
           : `<span class="chip"><span class="swatch" style="background:#ccc"></span>non renseigné</span>`;
 
-        const themeChip = p.theme ? `<span class="chip">thème: ${p.theme}</span>` : "";
+        const themeChip = p.theme ? `<span class="chip">thème: ${escapeHTML(p.theme)}</span>` : "";
 
         const vids = (p.videos || []).slice().sort((a,b) => {
           const da = a.created_at ? new Date(a.created_at).getTime() : 0;
@@ -228,23 +239,23 @@
           return db - da;
         }).map(v => `
           <div class="video-item">
-            <a href="${v.url}" target="_blank" rel="noopener">
-              <img src="${v.thumbnail || ""}" alt="miniature">
+            <a href="${safeUrl(v.url)}" target="_blank" rel="noopener">
+              <img src="${safeUrl(v.thumbnail || '')}" alt="miniature">
             </a>
             <div class="video-meta">
-              <p class="video-title"><a href="${v.url}" target="_blank" rel="noopener">${v.nom}</a></p>
+              <p class="video-title"><a href="${safeUrl(v.url)}" target="_blank" rel="noopener">${escapeHTML(v.nom)}</a></p>
               <div class="muted">${formatDateFR(v.created_at)}</div>
             </div>
           </div>
         `).join("");
 
-        const gpx = p.gpx ? ` <a class="gpx" href="${p.gpx}" target="_blank" rel="noopener">(GPX)</a>` : "";
+        const gpx = p.gpx ? ` <a class="gpx" href="${safeUrl(p.gpx)}" target="_blank" rel="noopener">(GPX)</a>` : "";
 
         const card = document.createElement("div");
         card.className = "pdf-card";
         card.innerHTML = `
           <div class="pdf-header">
-            <h3 class="pdf-title"><a href="${p.path}" target="_blank" rel="noopener">${p.nom || p.path}</a>${gpx}</h3>
+            <h3 class="pdf-title"><a href="${safeUrl(p.path)}" target="_blank" rel="noopener">${escapeHTML(p.nom || p.path)}</a>${gpx}</h3>
             ${diffChip}
             ${themeChip}
             <span class="muted">· ${p.videos?.length || 0} vidéo(s)</span>
@@ -258,69 +269,25 @@
 
     async function fetchAllVideos() {
       try {
-        setStatus("Chargement…");
-        while (true) {
-          const params = new URLSearchParams({ q: "", limit: PAGE_SIZE, offset: nextOffset, order: "desc" });
-          const res = await fetch(`${API}/videos?` + params.toString());
-          if (!res.ok) throw new Error("API " + res.status);
-          const data = await res.json();
-          const total = data.total || 0;
-          if (!expectedTotal) expectedTotal = total;
-          const items = data.items || [];
-          if (!items.length) break;
-
-          for (const v of items) {
-            const baseVideo = {
-              id: v.id, nom: v.nom, url: v.url,
-              thumbnail: v.thumbnail || "",
-              created_at: v.created_at || null
-            };
-            // pour chaque PDF lié
-            for (const p of (v.pdfs || [])) {
-              const key = p.path; // unique
-              if (!key) continue;
-              if (!pdfMap.has(key)) {
-                pdfMap.set(key, {
-                  nom: p.nom || "",
-                  path: p.path,
-                  gpx: p.gpx || "",
-                  difficulte: p.difficulte || "",
-                  theme: getThemeFromPath(p.path),
-                  videos: [], latest: null
-                });
-              }
-              const entry = pdfMap.get(key);
-              // éviter doublons vidéo
-              if (!entry.videos.find(x => x.id === baseVideo.id)) {
-                entry.videos.push(baseVideo);
-                // maj latest
-                if (baseVideo.created_at) {
-                  const ts = new Date(baseVideo.created_at).getTime();
-                  const cur = entry.latest ? new Date(entry.latest).getTime() : 0;
-                  if (ts > cur) entry.latest = baseVideo.created_at;
-                }
-              }
-              // si difficulte vide mais on a une valeur → maj (cas multi-join)
-              if (!entry.difficulte && p.difficulte) entry.difficulte = p.difficulte;
-            }
-          }
-
-          fetchedTotal += items.length;
-          nextOffset += PAGE_SIZE;
-          setCounts();
-          setStatus(`Chargement ${Math.min(fetchedTotal, expectedTotal)} / ${expectedTotal}…`);
-
-          if (nextOffset >= expectedTotal || items.length < PAGE_SIZE) break;
+        setStatus("Chargement du catalogue…");
+        const response = await fetch(CATALOGUE_URL, {cache: "no-cache"});
+        if (!response.ok) throw new Error("JSON HTTP " + response.status);
+        const data = await response.json();
+        if (data.schema_version !== 1 || !Array.isArray(data.items)) throw new Error("Catalogue invalide");
+        pdfMap.clear();
+        for (const item of data.items) {
+          if (item.path) pdfMap.set(item.path, item);
         }
-        setStatus("");
         setCounts();
         renderThemeFilter();
         applyFiltersAndRender();
-      } catch (e) {
-        console.error(e);
-        setStatus("Erreur de chargement des données.", true);
+        setStatus("");
+      } catch (error) {
+        console.error(error);
+        setStatus("Catalogue indisponible. Veuillez réessayer ultérieurement.", true);
       }
     }
+
 
     (function init() {
       renderDiffButtons();
