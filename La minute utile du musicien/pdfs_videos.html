@@ -45,6 +45,17 @@
     .video-item img { width: 120px; max-width: 120px; height: auto; border-radius:6px; flex: 0 0 120px; }
     .video-meta { font-size: 0.9em; }
     .video-title { margin:0 0 4px; font-size: 0.98em; line-height: 1.2; }
+    .youtube-link {
+      display: inline-block; margin-top: 8px; padding: 10px 14px;
+      border-radius: 8px; background: #c5221f; color: #fff;
+      text-decoration: none; font-weight: bold;
+    }
+    .youtube-link:hover, .youtube-link:focus-visible { background: #9f1b18; }
+    .video-item a:focus-visible { outline: 3px solid #174ea6; outline-offset: 3px; }
+    @media (max-width: 640px) {
+      .videos { grid-template-columns: 1fr; }
+      .youtube-link { font-size: 1.05rem; padding: 14px 18px; }
+    }
     .counts { font-size: .95em; margin-left:auto; }
 
     .toolbar { display:flex; align-items:center; gap:10px; flex-wrap: wrap; }
@@ -239,12 +250,13 @@
           return db - da;
         }).map(v => `
           <div class="video-item">
-            <a href="${safeUrl(v.url)}" target="_blank" rel="noopener">
-              <img src="${safeUrl(v.thumbnail || '')}" alt="miniature">
+            <a href="${safeUrl(v.url)}" aria-label="Ouvrir la vidéo sur YouTube : ${escapeHTML(v.nom)}">
+              <img src="${safeUrl(v.thumbnail || '')}" alt="miniature de la vidéo">
             </a>
             <div class="video-meta">
-              <p class="video-title"><a href="${safeUrl(v.url)}" target="_blank" rel="noopener">${escapeHTML(v.nom)}</a></p>
+              <p class="video-title"><a href="${safeUrl(v.url)}">${escapeHTML(v.nom)}</a></p>
               <div class="muted">${formatDateFR(v.created_at)}</div>
+              <a class="youtube-link" href="${safeUrl(v.url)}" aria-label="Voir sur YouTube : ${escapeHTML(v.nom)}">▶ Voir sur YouTube</a>
             </div>
           </div>
         `).join("");
