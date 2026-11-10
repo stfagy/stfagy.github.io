@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ukulele Visualizer</title>
+    <script defer src="script.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #root {
+            font-size: 1.5em;      /* agrandi de 20% */
+            font-weight: bold;     /* texte en gras */
+            padding: 0.5em 0.5em;  /* un peu de marge interne si tu veux */
+          }
+        svg { margin-top: 20px; }
+        .note-circle { stroke: black; stroke-width: 1px; }
+        .note-label { font-size: 10px; text-anchor: middle; dominant-baseline: middle; fill: white; }
+    </style>
+</head>
+<body>
+<h2 id="titleDisplay" style="margin-bottom: 12px;"></h2>
+<div id="intervalDisplay" style="margin-top:8px;"></div>
+<!-- juste sous ton intervalDisplay : -->
+<svg id="circleDiagram" width="300" height="300" style="margin-top:20px;"></svg>
+
+<svg id="fretboard" width="800" height="200"></svg>
+<br/>
+<select id="root"></select>
+<label for="instrument">Instrument :</label>
+<label for="instrument">Instrument :</label>
+<select id="instrument"></select>
+&nbsp;&nbsp;&nbsp;
+<label for="scaleSelect">Gamme :</label>
+<select id="scaleSelect">
+  <option value="">-- aucune --</option>
+</select>
+&nbsp;&nbsp;&nbsp;
+<label for="chordSelect">Accord :</label>
+<select id="chordSelect">
+  <option value="">-- aucun --</option>
+</select>
+<br/>
+<label>
+  <input type="checkbox" id="displayMode" onchange="drawFretboard()" checked>
+  Afficher les intervalles (désactiver pour les notes)
+</label>
+
+
+
+</body>
+</html>

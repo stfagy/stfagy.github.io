@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ukulele",
+    "label": "Ukulélé (G C E A)",
+    "tuning": ["G", "C", "E", "A"],
+    "markers": [5, 7, 10, 12, 15],
+    "frets": 15
+  },
+  {
+    "id": "guitar",
+    "label": "Guitare (E A D G B E)",
+    "tuning": ["E", "A", "D", "G", "B", "E"],
+    "markers": [3, 5, 7, 9, 12, 15, 17, 19, 21],
+    "frets": 22
+  },
+  {
+    "id": "guitar_openD",
+    "label": "Guitare – Open D (D A D F# A D)",
+    "tuning": ["D", "A", "D", "F#", "A", "D"],
+    "markers": [3, 5, 7, 9, 12, 15, 17, 19, 21],
+    "frets": 22
+  },
+  {
+    "id": "bass",
+    "label": "Basse (E A D G)",
+    "tuning": ["E", "A", "D", "G"],
+    "markers": [3, 5, 7, 9, 12, 15, 17, 19],
+    "frets": 20
+  },
+  {
+    "id": "mandolin",
+    "label": "Mandoline (G D A E)",
+    "tuning": ["G", "D", "A", "E"],
+    "markers": [5, 7, 10, 12, 15],
+    "frets": 17
+  }
+]
