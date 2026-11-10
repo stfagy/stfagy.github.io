@@ -26,7 +26,21 @@
       border: 1px solid #ddd; border-radius: 10px; background:#fff; padding: 12px; margin-bottom: 15px;
       display: flex; gap: 15px; box-shadow:0 2px 4px rgba(0,0,0,.05);
     }
-    .video img { max-width: 160px; border-radius: 6px; }
+    .video img { max-width: 160px; width: 100%; height: auto; border-radius: 6px; }
+    .video-info { min-width: 0; flex: 1; }
+    .video h3 a { color: #174ea6; }
+    .youtube-link {
+      display: inline-block; margin-top: 10px; padding: 10px 14px;
+      border-radius: 8px; background: #c5221f; color: #fff;
+      text-decoration: none; font-weight: bold; min-height: 24px;
+    }
+    .youtube-link:hover, .youtube-link:focus-visible { background: #9f1b18; }
+    .video a:focus-visible { outline: 3px solid #174ea6; outline-offset: 3px; }
+    @media (max-width: 640px) {
+      .video { flex-direction: column; }
+      .video img { max-width: 100%; width: 240px; }
+      .youtube-link { font-size: 1.1rem; padding: 14px 18px; }
+    }
     .chip {
       display:inline-flex; align-items:center; gap:6px; border:1px solid #ccc; border-radius:16px; padding:2px 8px; font-size:0.85em;
     }
@@ -194,14 +208,15 @@
         const div = document.createElement("div");
         div.className = "video";
         div.innerHTML = `
-          <a href="${safeUrl(v.url)}" target="_blank">
-            <img src="${safeUrl(v.thumbnail)}" alt="miniature">
+          <a href="${safeUrl(v.url)}" aria-label="Ouvrir la vidéo sur YouTube : ${escapeHTML(v.nom)}">
+            <img src="${safeUrl(v.thumbnail)}" alt="miniature de la vidéo">
           </a>
-          <div>
-            <h3>${escapeHTML(v.nom)}</h3>
+          <div class="video-info">
+            <h3><a href="${safeUrl(v.url)}">${escapeHTML(v.nom)}</a></h3>
             <div><b>Date :</b> ${formatDateFR(v.created_at)}</div>
             <div><b>Difficultés :</b> ${diffChips || "-"}</div>
             <ul class="pdfs">${pdfList}</ul>
+            <a class="youtube-link" href="${safeUrl(v.url)}" aria-label="Voir sur YouTube : ${escapeHTML(v.nom)}">▶ Voir sur YouTube</a>
           </div>
         `;
         container.appendChild(div);
