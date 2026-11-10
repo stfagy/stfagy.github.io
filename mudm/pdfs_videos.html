@@ -1,12 +1,312 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0;url=../La%20minute%20utile%20du%20musicien/pdfs_videos.html">
-<title>MUdM — redirection temporaire</title>
+  <meta charset="UTF-8" />
+  <title>La Minute Utile du Musicien – PDFs → Vidéos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --gap: 10px; --card-bg:#fff; --border:#ddd; --muted:#666; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background:#fafafa; color:#111; }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(250,250,250,0.95); backdrop-filter: blur(4px); padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    h1 { margin: 0 0 10px; font-size: 20px; }
+    .filters { display: flex; gap: var(--gap); flex-wrap: wrap; align-items: center; }
+    input[type="text"] { padding: 8px 10px; font-size: 14px; border:1px solid #ccc; border-radius: 8px; min-width: 240px; }
+    select { padding: 8px 10px; font-size: 14px; border:1px solid #ccc; border-radius: 8px; }
+    #diff-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
+    .diff-btn {
+      border: 1px solid #999; border-radius: 12px; padding: 6px 10px;
+      cursor: pointer; font-size: 0.85em; display: inline-flex; align-items: center; gap: 8px; background:#fff;
+      transition: box-shadow .15s ease;
+    }
+    .diff-btn .swatch { width: 12px; height: 12px; border-radius: 50%; border:1px solid #666; }
+    .diff-btn.active { box-shadow: inset 0 0 0 2px rgba(0,0,0,0.6); font-weight: 600; }
+
+    main { padding: 16px; max-width: 1100px; margin: 0 auto; }
+    #status { margin: 8px 0 12px; color: var(--muted); font-size: 0.92em; }
+    #status.error { color:#b00020; }
+
+    .pdf-card {
+      border: 1px solid var(--border); border-radius: 12px; background: var(--card-bg); padding: 12px; margin-bottom: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+    }
+    .pdf-header { display:flex; gap:12px; align-items: center; flex-wrap: wrap; }
+    .pdf-title { margin:0; font-size: 1.05rem; }
+    .chip { display:inline-flex; align-items:center; gap:6px; border:1px solid #ccc; border-radius:16px; padding:2px 10px; font-size:0.85em; background:#fff; }
+    .swatch { display:inline-block; width:12px; height:12px; border:1px solid #999; border-radius:50%; }
+    .muted { color: var(--muted); }
+    .gpx { font-size: 0.9em; margin-left: 6px; }
+
+    .videos { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-top: 10px; }
+    .video-item {
+      border:1px solid var(--border); border-radius:10px; padding:8px; background:#fff;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .video-item img { width: 120px; max-width: 120px; height: auto; border-radius:6px; flex: 0 0 120px; }
+    .video-meta { font-size: 0.9em; }
+    .video-title { margin:0 0 4px; font-size: 0.98em; line-height: 1.2; }
+    .youtube-link {
+      display: inline-block; margin-top: 8px; padding: 10px 14px;
+      border-radius: 8px; background: #c5221f; color: #fff;
+      text-decoration: none; font-weight: bold;
+    }
+    .youtube-link:hover, .youtube-link:focus-visible { background: #9f1b18; }
+    .video-item a:focus-visible { outline: 3px solid #174ea6; outline-offset: 3px; }
+    @media (max-width: 640px) {
+      .videos { grid-template-columns: 1fr; }
+      .youtube-link { font-size: 1.05rem; padding: 14px 18px; }
+    }
+    .counts { font-size: .95em; margin-left:auto; }
+
+    .toolbar { display:flex; align-items:center; gap:10px; flex-wrap: wrap; }
+  </style>
 </head>
 <body>
-<p>Redirection provisoire vers le catalogue historique. <a href="../La%20minute%20utile%20du%20musicien/pdfs_videos.html">Ouvrir la page</a>.</p>
+  <header>
+    <h1>PDFs &rarr; Vidéos associées</h1>
+    <div class="filters">
+      <input id="q" type="text" placeholder="Rechercher un PDF…" />
+      <div id="diff-buttons"></div>
+      <div class="toolbar">
+        <label>
+          <span class="muted">Thème&nbsp;:</span>
+          <select id="theme"><option value="">Tous les thèmes</option></select>
+        </label>
+        <label>
+          <span class="muted">Trier&nbsp;:</span>
+          <select id="sort">
+            <option value="recent">par vidéo la plus récente</option>
+            <option value="alpha">alphabétique (A→Z)</option>
+          </select>
+        </label>
+        <span class="counts" id="counts"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="status"></div>
+    <div id="results"></div>
+  </main>
+
+  <script>
+    const CATALOGUE_URL = "./catalogue_pdfs.json";
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+      })[char]);
+    }
+    function safeUrl(value) {
+      const url = String(value || "");
+      try {
+        const parsed = new URL(url, location.href);
+        return url && ["http:", "https:"].includes(parsed.protocol) ? escapeHTML(url) : "#";
+      } catch { return "#"; }
+    }
+
+    // Palette couleurs (identique à videos_pdf.html)
+    const diffColors = {
+      "débutant": "#f3f3f3",
+      "novice": "#e8d418",
+      "intermédiaire": "#ee1611",
+      "avancé": "#18e821",
+      "expert": "#1876e8",
+      "maître": "#82240b",
+      "grand maître": "#0c0c0c"
+    };
+
+    // État global
+    const pdfMap = new Map(); // key=path, value={nom, path, gpx, difficulte, theme, videos:[...], latest}
+    let fetchedTotal = 0, expectedTotal = 0, nextOffset = 0;
+    let currentQ = "", currentSort = "recent";
+    let debounceId;
+
+    function setStatus(msg, isError=false) {
+      const s = document.getElementById("status");
+      s.className = isError ? "error" : "";
+      s.textContent = msg || "";
+    }
+    function setCounts() {
+      const totalPDFs = pdfMap.size;
+      let vids = 0;
+      for (const [,v] of pdfMap) vids += (v.videos?.length || 0);
+      document.getElementById("counts").textContent = totalPDFs ? `${totalPDFs} PDF · ${vids} vidéo(s)` : "";
+    }
+
+    function formatDateFR(isoStr) {
+      if (!isoStr) return "-";
+      const d = new Date(isoStr);
+      const now = new Date();
+      const diffMs = now - d;
+      const diffSec = Math.floor(diffMs / 1000);
+      const diffMin = Math.floor(diffSec / 60);
+      const diffH = Math.floor(diffMin / 60);
+      const diffJ = Math.floor(diffH / 24);
+
+      if (diffSec < 60) return "à l'instant";
+      if (diffMin < 60) return `il y a ${diffMin} min`;
+      if (diffH < 24) return `il y a ${diffH} h`;
+      if (diffJ === 1) return "hier";
+      if (diffJ < 7) return `il y a ${diffJ} j`;
+
+      return d.toLocaleString("fr-FR", {
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      });
+    }
+
+    function renderDiffButtons() {
+      const container = document.getElementById("diff-buttons");
+      container.innerHTML = "";
+      Object.entries(diffColors).forEach(([label, color]) => {
+        const btn = document.createElement("button");
+        btn.className = "diff-btn";
+        btn.dataset.value = label;
+        btn.innerHTML = `<span class="swatch" style="background:${color}"></span>${label}`;
+        btn.onclick = () => {
+          btn.classList.toggle("active");
+          applyFiltersAndRender();
+        };
+        container.appendChild(btn);
+      });
+    }
+    function getSelectedDiffs() {
+      return Array.from(document.querySelectorAll(".diff-btn.active")).map(b => b.dataset.value);
+    }
+
+    function debouncedSearch() {
+      clearTimeout(debounceId);
+      debounceId = setTimeout(() => {
+        currentQ = document.getElementById("q").value.trim();
+        applyFiltersAndRender();
+      }, 300);
+    }
+
+    function getThemeFromPath(path) {
+      if (!path) return "";
+      // Normaliser séparateur
+      const parts = path.split("/").filter(Boolean);
+      // Cherche le dernier dossier (avant le fichier)
+      if (parts.length >= 2) {
+        return parts[parts.length - 2];
+      }
+      return "";
+    }
+
+    function renderThemeFilter() {
+      const sel = document.getElementById("theme");
+      const themes = Array.from(new Set(
+        Array.from(pdfMap.values()).map(p => p.theme).filter(Boolean)
+      )).sort((a,b) => a.localeCompare(b));
+      sel.innerHTML = `<option value="">Tous les thèmes</option>` + themes.map(t => `<option value="${t}">${t}</option>`).join("");
+      sel.onchange = applyFiltersAndRender;
+    }
+
+    function applyFiltersAndRender() {
+      const currentDiffs = getSelectedDiffs();
+      currentSort = document.getElementById("sort").value;
+      const selTheme = document.getElementById("theme").value;
+
+      const items = Array.from(pdfMap.values()).filter(p => {
+        const okQ = !currentQ || (p.nom?.toLowerCase().includes(currentQ.toLowerCase()));
+        const okD = !currentDiffs.length || (p.difficulte && currentDiffs.includes(p.difficulte));
+        const okT = !selTheme || p.theme === selTheme;
+        return okQ && okD && okT;
+      });
+
+      if (currentSort === "alpha") {
+        items.sort((a,b) => (a.nom || "").localeCompare(b.nom || ""));
+      } else {
+        // trier par date de la vidéo la plus récente liée
+        items.sort((a,b) => {
+          const da = a.latest ? new Date(a.latest).getTime() : 0;
+          const db = b.latest ? new Date(b.latest).getTime() : 0;
+          return db - da;
+        });
+      }
+
+      renderPDFList(items);
+    }
+
+    function renderPDFList(items) {
+      const container = document.getElementById("results");
+      container.innerHTML = "";
+      if (!items.length) {
+        container.innerHTML = "<div class='muted'>Aucun PDF pour ces filtres.</div>";
+        return;
+      }
+
+      for (const p of items) {
+        const diffChip = p.difficulte ?
+          `<span class="chip"><span class="swatch" style="background:${diffColors[p.difficulte] || "#ccc"}"></span>${escapeHTML(p.difficulte)}</span>`
+          : `<span class="chip"><span class="swatch" style="background:#ccc"></span>non renseigné</span>`;
+
+        const themeChip = p.theme ? `<span class="chip">thème: ${escapeHTML(p.theme)}</span>` : "";
+
+        const vids = (p.videos || []).slice().sort((a,b) => {
+          const da = a.created_at ? new Date(a.created_at).getTime() : 0;
+          const db = b.created_at ? new Date(b.created_at).getTime() : 0;
+          return db - da;
+        }).map(v => `
+          <div class="video-item">
+            <a href="${safeUrl(v.url)}" aria-label="Ouvrir la vidéo sur YouTube : ${escapeHTML(v.nom)}">
+              <img src="${safeUrl(v.thumbnail || '')}" alt="miniature de la vidéo">
+            </a>
+            <div class="video-meta">
+              <p class="video-title"><a href="${safeUrl(v.url)}">${escapeHTML(v.nom)}</a></p>
+              <div class="muted">${formatDateFR(v.created_at)}</div>
+              <a class="youtube-link" href="${safeUrl(v.url)}" aria-label="Voir sur YouTube : ${escapeHTML(v.nom)}">▶ Voir sur YouTube</a>
+            </div>
+          </div>
+        `).join("");
+
+        const gpx = p.gpx ? ` <a class="gpx" href="${safeUrl(p.gpx)}" target="_blank" rel="noopener">(GPX)</a>` : "";
+
+        const card = document.createElement("div");
+        card.className = "pdf-card";
+        card.innerHTML = `
+          <div class="pdf-header">
+            <h3 class="pdf-title"><a href="${safeUrl(p.path)}" target="_blank" rel="noopener">${escapeHTML(p.nom || p.path)}</a>${gpx}</h3>
+            ${diffChip}
+            ${themeChip}
+            <span class="muted">· ${p.videos?.length || 0} vidéo(s)</span>
+            ${p.latest ? `<span class="muted">· maj: ${formatDateFR(p.latest)}</span>` : ""}
+          </div>
+          <div class="videos">${vids}</div>
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    async function fetchAllVideos() {
+      try {
+        setStatus("Chargement du catalogue…");
+        const response = await fetch(CATALOGUE_URL, {cache: "no-cache"});
+        if (!response.ok) throw new Error("JSON HTTP " + response.status);
+        const data = await response.json();
+        if (data.schema_version !== 1 || !Array.isArray(data.items)) throw new Error("Catalogue invalide");
+        pdfMap.clear();
+        for (const item of data.items) {
+          if (item.path) pdfMap.set(item.path, item);
+        }
+        setCounts();
+        renderThemeFilter();
+        applyFiltersAndRender();
+        setStatus("");
+      } catch (error) {
+        console.error(error);
+        setStatus("Catalogue indisponible. Veuillez réessayer ultérieurement.", true);
+      }
+    }
+
+
+    (function init() {
+      renderDiffButtons();
+      document.getElementById("q").addEventListener("input", debouncedSearch);
+      document.getElementById("sort").addEventListener("change", applyFiltersAndRender);
+      fetchAllVideos();
+    })();
+  </script>
 </body>
 </html>
